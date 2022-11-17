@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
 const userRouter = require("./routes/userRoutes");
+const lotteryRouter = require("./routes/lotteryRoutes");
 
 const app = express();
 
@@ -19,6 +20,6 @@ if (process.env.NODE_ENV === "development") {
 
 ////////////////ROUTES
 app.use("/api/v1/users", userRouter);
-// app.use("/api/v1/lotteries", lotteryRouter);
+app.use("/api/v1/lotteries", lotteryRouter);
 
 module.exports = app;

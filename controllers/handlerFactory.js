@@ -14,7 +14,7 @@ exports.getAll = (Model) =>
       .json({ status: "success", results: doc.length, data: { data: doc } });
   });
 
-exports.getSpecidficOne = (Model) =>
+exports.getSpecificOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findById(req.params.id);
 
