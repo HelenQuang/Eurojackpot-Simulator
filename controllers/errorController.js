@@ -30,6 +30,7 @@ const sendErrDev = (err, req, res) => {
 
   //Error for view template
   console.error("ERROR 💥", err);
+
   return res.status(err.statusCode).render("error", {
     title: "Something went wrong!",
     msg: err.message,
@@ -48,6 +49,7 @@ const sendErrProd = (err, req, res) => {
 
     //Programming or unknown error => don't show error details
     console.error("ERROR 💥", err);
+
     return res.status(500).json({
       status: "error",
       message: "Something went wrong",
