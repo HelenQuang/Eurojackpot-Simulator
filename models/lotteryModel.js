@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const lotterySchema = new mongoose.Schema({
-  tickets: [{ mainNumbers: [Number], starNumbers: [Number] }],
+  tickets: [{ mainNum: [Number], starNum: [Number] }],
   cost: Number,
-  result: [{ mainNumbers: [Number], starNumbers: [Number] }],
+  result: [{ mainNum: [Number], starNum: [Number] }],
   win: Number,
   playAt: { type: Date, default: Date.now() },
 });
