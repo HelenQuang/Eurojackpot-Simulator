@@ -1,3 +1,4 @@
+const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
@@ -13,6 +14,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
+    role: req.body.role,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
   });
@@ -92,14 +94,12 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.restrictTo = (...roles) => {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return next(
-        new AppError("You do not have permission to do this action", 403)
-      );
-    }
+exports.restrict = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    return next(
+      new AppError("You do not have permission to do this action", 403)
+    );
+  }
 
-    next();
-  };
+  next();
 };

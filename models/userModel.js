@@ -74,5 +74,17 @@ userSchema.methods.comparePassword = async function (
   return await bcrypt.compare(inputPassword, databasePassword);
 };
 
+//INSTANCE METHOD to check if user has recently change password
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return JWTTimestamp < changedTimestamp; //return TRUE when the time that JWT issued < the time that user changed password
+  }
+  return false; //return FALSE when there is no change
+};
+
 const User = mongoose.model("User", userSchema);
 module.exports = User;
