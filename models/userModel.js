@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 const userSchema = mongoose.Schema({
   name: { type: String, required: [true, "Please tell us your name"] },
@@ -84,6 +85,20 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
     return JWTTimestamp < changedTimestamp; //return TRUE when the time that JWT issued < the time that user changed password
   }
   return false; //return FALSE when there is no change
+};
+
+//INSTANCE METHOD to create new token when reset password
+userSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000; //expires in 10mins
+
+  return resetToken;
 };
 
 const User = mongoose.model("User", userSchema);
