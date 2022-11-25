@@ -66,6 +66,17 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+//MIDDLEWARE to update passwordChangedAt property when password property is modified
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password") || this.isNew) {
+    return next();
+  }
+
+  this.passwordChangedAt = Date.now() - 1000;
+
+  next();
+});
+
 //////////////////////////////////////
 //INSTANCE METHOD to check if the input password when log in is the same as the password in database
 userSchema.methods.comparePassword = async function (
