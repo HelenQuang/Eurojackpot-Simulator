@@ -5,6 +5,11 @@ const {
   updateUser,
   createUser,
   deleteUser,
+  getMe,
+  updateMe,
+  deleteMe,
+  uploadUserPhoto,
+  resizeUserPhoto,
 } = require("../controllers/userController");
 const {
   signUp,
@@ -26,9 +31,9 @@ router.route("/resetPassword/:token").patch(resetPassword);
 
 router.use(protect);
 router.route("/updatePassword").patch(updatePassword);
-// router.route("/me").get(getMe, getSpecificUser);
-// router.route("/updateMe").patch(uploadUserPhoto, resizeUserPhoto, updateMe);
-// router.route("/deleteMe").delete(deleteMe);
+router.route("/me").get(getMe, getSpecificUser);
+router.route("/updateMe").patch(uploadUserPhoto, resizeUserPhoto, updateMe);
+router.route("/deleteMe").delete(deleteMe);
 
 router.use(restrict);
 router.route("/").get(getAllUsers).post(createUser);
