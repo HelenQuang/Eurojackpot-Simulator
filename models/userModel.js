@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const Lottery = require("./lotteryModel");
 
 const userSchema = mongoose.Schema({
   name: { type: String, required: [true, "Please tell us your name"] },
@@ -47,6 +48,8 @@ const userSchema = mongoose.Schema({
       paidAt: Date,
     },
   ],
+  gameAccount: { type: Number, default: 100, min: 0 },
+  lotteries: Array,
   active: { type: Boolean, default: true, select: false },
   passwordChangedAt: Date,
   passwordResetToken: String,

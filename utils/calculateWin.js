@@ -17,7 +17,7 @@ const lotteryResult = {
 */
 
 const compareLottery = (arr1, arr2) => {
-  return arr1.filter((item) => arr2.includes(item));
+  return arr1.filter((value) => arr2.includes(value));
 };
 
 const calculateWin = (lotteryByUser, lotteryResult) => {
@@ -80,4 +80,4 @@ const calculateWin = (lotteryByUser, lotteryResult) => {
   }
 };
 
-export default calculateWin;
+module.exports = calculateWin;
