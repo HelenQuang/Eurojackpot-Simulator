@@ -34,7 +34,7 @@ const calculateWin = (lotteryByUser, lotteryResult) => {
   }
 
   if (winMainNum === 1 && winStarNum === 2) {
-    return 11;
+    return 12;
   }
 
   if (winMainNum === 3 && winStarNum === 0) {
@@ -46,7 +46,7 @@ const calculateWin = (lotteryByUser, lotteryResult) => {
   }
 
   if (winMainNum === 2 && winStarNum === 2) {
-    return 23;
+    return 24;
   }
 
   if (winMainNum === 4 && winStarNum === 0) {
@@ -54,23 +54,23 @@ const calculateWin = (lotteryByUser, lotteryResult) => {
   }
 
   if (winMainNum === 3 && winStarNum === 2) {
-    return 120;
+    return 124;
   }
 
   if (winMainNum === 4 && winStarNum === 1) {
-    return 287;
+    return 291;
   }
 
   if (winMainNum === 4 && winStarNum === 2) {
-    return 4501;
+    return 4600;
   }
 
   if (winMainNum === 5 && winStarNum === 0) {
-    return 129814;
+    return 129179;
   }
 
   if (winMainNum === 5 && winStarNum === 1) {
-    return 718812;
+    return 724418;
   }
 
   if (winMainNum === 5 && winStarNum === 2) {

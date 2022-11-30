@@ -13,42 +13,42 @@ const rows = [
   {
     tier: "Match 5 main numbers and 2 star numbers",
     odd: "1 in 139 838 160",
-    prize: "€35 284 265",
+    prize: "€45 622 698",
   },
   {
     tier: "Match 5 main numbers and 1 star number",
     odd: "1 in 6 991 908",
-    prize: "€575 877",
+    prize: "€724 418",
   },
   {
     tier: "Match 5 main numbers",
     odd: "1 in 3 107 515",
-    prize: "€116 555",
+    prize: "€129 179",
   },
   {
     tier: "Match 4 main numbers and 2 star numbers",
     odd: "1 in 621 503",
-    prize: "€4 319",
+    prize: "€4 600",
   },
   {
     tier: "Match 4 main numbers and 1 star number",
     odd: "1 in 31 075",
-    prize: "€269",
+    prize: "€291",
   },
   {
     tier: "Match 3 main numbers and 2 star numbers",
     odd: "1 in 14 125",
-    prize: "€95",
+    prize: "€124",
   },
   {
     tier: "Match 4 main numbers",
     odd: "1 in 13 811",
-    prize: "€105",
+    prize: "€106",
   },
   {
     tier: "Match 2 main numbers and 2 star numbers",
     odd: "1 in 985",
-    prize: "€22",
+    prize: "€24",
   },
   {
     tier: "Match 3 main numbers and 1 star number",
@@ -58,12 +58,12 @@ const rows = [
   {
     tier: "Match 3 main numbers",
     odd: "1 in 314",
-    prize: "€16",
+    prize: "€17",
   },
   {
     tier: "Match 1 main number and 2 star numbers",
     odd: "1 in 188",
-    prize: "€11",
+    prize: "€12",
   },
   {
     tier: "Match 2 main numbers and 1 star number",
@@ -78,7 +78,7 @@ const OddTable = () => {
       <h2>Odd of Winning Table</h2>
       <TableContainer component={Box} style={{ marginTop: "1rem" }}>
         <Table sx={{ minWidth: 650, maxWidth: 750 }} aria-label="caption table">
-          <caption>Source: Euro-jackpot.net</caption>
+          <caption>Source: euro-jackpot.net</caption>
           <TableHead>
             <TableRow
               sx={{

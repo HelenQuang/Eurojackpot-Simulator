@@ -39,7 +39,7 @@ const Hero = () => {
             paddingLeft: { xs: "0rem", md: "3rem" },
           }}
         >
-          Week {weekNumber} | Game time until 20:00 on Friday
+          Week {weekNumber} | Game time until 20:00 on Tuesday or Friday
         </Typography>
         <Typography
           sx={{
@@ -64,7 +64,7 @@ const Hero = () => {
             paddingLeft: { xs: "0rem", md: "3rem" },
           }}
         >
-          Max. 90 000 000 €
+          Max. 120 000 000 €
         </Typography>
       </Container>
     </Box>

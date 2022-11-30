@@ -1,8 +1,14 @@
+import lotteryModel from "./lotteryModel";
+import transactionModel from "./transactionModel";
+
 interface userInfoModel {
   name: string;
   email: string;
-  bankAccount: number;
-  isAdmin: boolean;
+  photo: string;
+  gameAccount: number;
+  role: string;
+  lotteries?: [lotteryModel];
+  transaction: [transactionModel];
   token?: string;
 }
 

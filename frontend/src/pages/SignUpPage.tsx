@@ -17,7 +17,7 @@ const SignUpPage = () => {
       <Avatar sx={{ m: 1, bgcolor: "var(--bg-purple)", color: "var(--black)" }}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography component="h1" variant="h6">
+      <Typography component="h1" variant="h6" sx={{ fontWeight: "bold" }}>
         Sign Up
       </Typography>
       <Box
@@ -45,7 +45,7 @@ const SignUpPage = () => {
         />
         <Button
           variant="contained"
-          sx={{ mt: 3 }}
+          sx={{ mt: 3, fontWeight: "bold" }}
           endIcon={<SendOutlinedIcon />}
           type="submit"
         >

@@ -10,9 +10,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { userLogin } from "../slices/userSlice";
 
-const SignInPage = () => {
+const LogInPage = () => {
   const dispatch = useAppDispatch();
 
   return (
@@ -29,8 +28,8 @@ const SignInPage = () => {
       <Avatar sx={{ m: 1, bgcolor: "var(--bg-purple)", color: "var(--black)" }}>
         <LockOutlinedIcon />
       </Avatar>
-      <Typography component="h1" variant="h6">
-        Sign In
+      <Typography component="h1" variant="h6" sx={{ fontWeight: "bold" }}>
+        Log In
       </Typography>
       <Box
         my={4}
@@ -44,11 +43,11 @@ const SignInPage = () => {
         <TextField required id="password" label="Password" type="password" />
         <Button
           variant="contained"
-          sx={{ my: 3 }}
+          sx={{ my: 3, fontWeight: "bold" }}
           endIcon={<SendOutlinedIcon />}
           type="submit"
         >
-          Sign In
+          Log In
         </Button>
 
         <Link href="/signup" variant="body2">
@@ -59,4 +58,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default LogInPage;
