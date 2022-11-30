@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Martel+Sans:wght@200;300;400;600;700;800;900&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --white: #fff;
+  --black: #000;
+  --yellow: #ffec01;
+  --dark-yellow: #ffd000;
+  --purple: #72008c;
+  --dark-purple: #5d0073;
+  --light-purple: #f8e6fc;
+  --bg-purple: #eecaf5;
+  --orange: #ff9700;
+  --green: #028920;
+}
+
+body {
+  font-family: "Martel Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+ul {
+  list-style: none;
+}
