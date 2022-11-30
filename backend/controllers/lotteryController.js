@@ -28,7 +28,6 @@ exports.submitLottery = catchAsync(async (req, res, next) => {
     if (user.gameAccount > 0) {
       const updatedGameAccount = user.gameAccount - totalCost + totalPrize;
       user.gameAccount = updatedGameAccount;
-      // await user.save();
     } else {
       return next(
         new AppError(

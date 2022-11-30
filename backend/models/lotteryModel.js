@@ -7,6 +7,8 @@ const lotterySchema = new mongoose.Schema({
         {
           type: Number,
           required: [true, "Lottery ticket must have 5 main numbers"],
+          max: 50,
+          min: 1,
         },
       ],
 
@@ -14,6 +16,8 @@ const lotterySchema = new mongoose.Schema({
         {
           type: Number,
           required: [true, "Lottery ticket must have 2 star numbers"],
+          max: 12,
+          min: 1,
         },
       ],
     },
