@@ -1,3 +1,4 @@
+import { createSlice } from "@reduxjs/toolkit";
 import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
@@ -25,7 +26,11 @@ import {
 import userInfoModel from "../models/userInfoModel";
 
 interface userState {
+  loading: boolean;
   userInfo: userInfoModel;
+  userToken: string | null;
+  error: string | null;
+  success: boolean;
 }
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
@@ -35,3 +40,20 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 const tokenFromStorage = localStorage.getItem("token")
   ? JSON.parse(localStorage.getItem("token")!)
   : null;
+
+const initialState: userState = {
+  loading: false,
+  userInfo: userInfoFromStorage,
+  userToken: tokenFromStorage,
+  error: null,
+  success: false,
+};
+
+const userSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {},
+  extraReducers: {},
+});
+
+export default userSlice.reducer;
