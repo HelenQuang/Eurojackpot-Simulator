@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -8,9 +9,16 @@ import {
   Alert,
 } from "@mui/material";
 
-const topupAmount = [10, 20, 30, 50];
+const topupAmount = [
+  { id: "price_1MAZdbJSeoXs5toMHxhk6MwL", amount: "10" },
+  { id: "price_1MAZe1JSeoXs5toM2Yi5vcQT", amount: "20" },
+  { id: "price_1MAZeHJSeoXs5toMtfJ7guNr", amount: "30" },
+  { id: "price_1MAZeWJSeoXs5toMZR8oFML8", amount: "50" },
+];
 
 const TransactionPage = () => {
+  const [selectedAmount, setSelectedAmount] = useState<string>("10");
+
   return (
     <div
       style={{
@@ -33,10 +41,10 @@ const TransactionPage = () => {
         >
           {topupAmount.map((amount) => (
             <FormControlLabel
-              key={amount}
-              value={amount}
+              key={amount.id}
+              value={amount.amount}
               control={<Radio />}
-              label={`${amount} Euros`}
+              label={`${amount.amount} Euros`}
             />
           ))}
         </RadioGroup>
