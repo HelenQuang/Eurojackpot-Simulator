@@ -8,13 +8,7 @@ exports.createTransaction = async (req, res) => {
     line_items: [
       {
         quantity: 1,
-        price_data: {
-          unit_amount: req.body.amount.id,
-          currency: "eur",
-          product_data: {
-            name: "Eurojackpot Simulator Topup Transaction",
-          },
-        },
+        price: req.body.id,
       },
     ],
     success_url: `${req.protocol}://${req.get("host")}/profile`,

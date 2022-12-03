@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FormControl,
   FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,
+  Button,
   CircularProgress,
   Alert,
 } from "@mui/material";
@@ -38,6 +39,7 @@ const TransactionPage = () => {
           aria-labelledby="top-up"
           defaultValue="10"
           style={{ alignItems: "center" }}
+          onChange={(e) => setSelectedAmount(e.target.value)}
         >
           {topupAmount.map((amount) => (
             <FormControlLabel
@@ -49,6 +51,9 @@ const TransactionPage = () => {
           ))}
         </RadioGroup>
       </FormControl>
+      <Button variant="contained" type="submit">
+        Pay with Stripe
+      </Button>
     </div>
   );
 };

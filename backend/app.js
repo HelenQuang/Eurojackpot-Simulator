@@ -11,7 +11,6 @@ const compression = require("compression");
 const userRouter = require("./routes/userRoutes");
 const lotteryRouter = require("./routes/lotteryRoutes");
 const globalErrorHandler = require("./controllers/errorController");
-const createTransaction = require("./controllers/transactionController");
 const AppError = require("./utils/appError");
 
 const app = express();
@@ -54,7 +53,6 @@ app.use(xss());
 ////////////////ROUTES
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/lotteries", lotteryRouter);
-app.post("/api/v1/transaction", createTransaction);
 
 ///////////////HANDLE PAGE NOT FOUND AND GLOBAL ERROR
 app.all("*", (req, res, next) => {
