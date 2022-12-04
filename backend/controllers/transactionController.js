@@ -11,14 +11,14 @@ exports.createTransaction = async (req, res) => {
         price: req.body.id,
       },
     ],
-    success_url: `${req.protocol}://${req.get("host")}/profile`,
-    cancel_url: `${req.protocol}://${req.get("host")}/transaction`,
-    customer_email: req.user.email,
+    success_url: "http://127.0.0.1:3000/profile",
+    cancel_url: "http://127.0.0.1:3000/transaction",
+    // customer_email: req.user.email,
     mode: "payment",
   });
 
   res.status(200).json({
     status: "success",
-    session,
+    url: session.url,
   });
 };

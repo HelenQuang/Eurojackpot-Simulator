@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   FormControl,
   FormLabel,
@@ -19,6 +20,26 @@ const topupAmount = [
 
 const TransactionPage = () => {
   const [selectedAmount, setSelectedAmount] = useState<string>("10");
+
+  const selectedAmountId = topupAmount.find(
+    (item) => item.amount === selectedAmount
+  )!.id;
+
+  const createTransaction = async () => {
+    await fetch("/api/v1/lotteries/createTransaction", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: selectedAmountId }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        if (res.url) {
+          window.location.assign(res.url);
+        }
+      });
+  };
 
   return (
     <div
@@ -51,7 +72,7 @@ const TransactionPage = () => {
           ))}
         </RadioGroup>
       </FormControl>
-      <Button variant="contained" type="submit">
+      <Button variant="contained" type="submit" onClick={createTransaction}>
         Pay with Stripe
       </Button>
     </div>
