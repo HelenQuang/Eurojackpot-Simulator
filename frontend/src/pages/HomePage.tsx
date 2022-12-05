@@ -1,6 +1,5 @@
 import TicketList from "../components/game/tickets/TicketList";
-import MainNumberTable from "../components/game/numbers/MainNumberTable";
-import StarNumberTable from "../components/game/numbers/StarNumberTable";
+import TicketSelect from "../components/game/numbers/TicketSelect";
 
 const HomePage = () => {
   return (
@@ -8,10 +7,8 @@ const HomePage = () => {
       <h2>Basic Game</h2>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <TicketList />
-        <div>
-          <MainNumberTable />
-          <StarNumberTable />
-        </div>
+
+        <TicketSelect />
       </div>
     </>
   );
