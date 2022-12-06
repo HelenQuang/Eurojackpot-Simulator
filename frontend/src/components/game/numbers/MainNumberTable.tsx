@@ -8,7 +8,7 @@ const MainNumberTable = () => {
 
   return (
     <div className="number-box">
-      <h5 className="label">Select 5 main numbers</h5>
+      <h4 className="label">Select 5 main numbers</h4>
       <div className="number-grid">
         {mainNumberArr.map((number, index) => (
           <div

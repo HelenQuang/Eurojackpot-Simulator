@@ -14,6 +14,7 @@ const TicketSelect = () => {
         variant="outlined"
         type="submit"
         startIcon={<ShuffleOnRoundedIcon />}
+        style={{ borderColor: "var(--purple)", color: "var(--purple)" }}
       >
         Auto-generate ticket
       </Button>

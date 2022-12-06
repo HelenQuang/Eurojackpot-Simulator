@@ -7,7 +7,7 @@ const StarNumberTable = () => {
 
   return (
     <div className="number-box">
-      <h5 className="label">Select 2 star numbers</h5>
+      <h4 className="label">Select 2 star numbers</h4>
       <div className="number-grid">
         {starNumberArr.map((number, index) => (
           <div

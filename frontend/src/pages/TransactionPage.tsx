@@ -36,7 +36,7 @@ const TransactionPage = () => {
       })
       .then((res) => {
         if (res.url) {
-          window.location.assign(res.url);
+          window.open(res.url, "_blank");
         }
       });
   };

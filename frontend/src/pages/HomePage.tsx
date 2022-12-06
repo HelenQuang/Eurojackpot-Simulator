@@ -5,9 +5,8 @@ const HomePage = () => {
   return (
     <>
       <h2>Basic Game</h2>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
         <TicketList />
-
         <TicketSelect />
       </div>
     </>

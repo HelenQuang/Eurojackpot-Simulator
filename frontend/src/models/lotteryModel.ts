@@ -1,5 +1,7 @@
 interface lotteryModel {
-  tickets: [{ mainNum: [Number]; starNum: [Number] }];
+  id: String;
+  mainNum: number[];
+  starNum: number[];
 }
 
 export default lotteryModel;

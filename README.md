@@ -1,6 +1,6 @@
 # Eurojackpot Simulator Website
 
-> A project built with Node JS, Express, MongoDB, React JS and Typescript to simulate the real Eurojackpot lottery with false money.
+> A project built with Node JS, Express, MongoDB, React JS and Typescript to simulate the real Eurojackpot lottery with fake money (from Google Pay or Sample Card Information below).
 
 ## Specifications:
 
@@ -26,6 +26,15 @@ Password: test1234
 
 kevin@example.com (User 2 Account)
 Password: test1234
+```
+
+## Sample Card Infomation:
+
+```
+Card information:
+4242 4242 4242 4242
+12/25
+111
 ```
 
 ## DEMO:
