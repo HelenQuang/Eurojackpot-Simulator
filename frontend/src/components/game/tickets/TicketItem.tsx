@@ -13,7 +13,7 @@ const TicketItem = ({ ticket }: ticketProps) => {
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        gap: "2.5rem",
+        gap: "4rem",
         alignItems: "center",
         fontWeight: 600,
         fontSize: "0.9rem",
@@ -74,9 +74,11 @@ const TicketItem = ({ ticket }: ticketProps) => {
         ))}
       </Box>
 
-      <Button type="submit" style={{ color: "var(--dark-purple)" }}>
-        <DeleteForeverIcon />
-      </Button>
+      <Button
+        type="button"
+        startIcon={<DeleteForeverIcon />}
+        style={{ color: "var(--dark-purple)" }}
+      />
     </Box>
   );
 };

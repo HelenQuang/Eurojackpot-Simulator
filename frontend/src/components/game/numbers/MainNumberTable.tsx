@@ -1,21 +1,56 @@
-import React, { useState } from "react";
-import "../../../style/Number.css";
+import React, { useEffect } from "react";
+import styles from "./Number.module.css";
+
+interface MainNumberTableProps {
+  mainNum: number[];
+  setMainNum: React.Dispatch<React.SetStateAction<number[]>>;
+  maxMainNum: boolean;
+  setMaxMainNum: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const mainNumberArr = Array.from({ length: 50 }, (_, i) => i + 1);
 
-const MainNumberTable = () => {
-  const [active, setActive] = useState<number | null>(null);
+const MainNumberTable = ({
+  mainNum,
+  setMainNum,
+  maxMainNum,
+  setMaxMainNum,
+}: MainNumberTableProps) => {
+  const selectNumberHandler = (selectNumber: number) => {
+    const currentMainNumArr = [...mainNum];
+    const existingNum = currentMainNumArr.includes(selectNumber);
+
+    if (existingNum) {
+      setMainNum(currentMainNumArr);
+    } else {
+      setMainNum([...currentMainNumArr, selectNumber]);
+    }
+  };
+
+  useEffect(() => {
+    if (mainNum.length === 5) {
+      setMaxMainNum(true);
+    } else {
+      setMaxMainNum(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainNum, setMaxMainNum]);
+
+  const numberClasses = (selectNumber: number) =>
+    `${styles.number} ${
+      mainNum.find((num) => num === selectNumber) ? styles.active : ""
+    } ${maxMainNum ? styles.disable : ""}`;
 
   return (
-    <div className="number-box">
-      <h4 className="label">Select 5 main numbers</h4>
-      <div className="number-grid">
+    <div className={styles.numberBox}>
+      <h4 className={styles.label}>Select 5 main numbers</h4>
+      <div className={styles.numberGrid}>
         {mainNumberArr.map((number, index) => (
           <div
             key={`mainNum_${index}`}
-            className={`number ${active === number && "active"}`}
+            className={numberClasses(number)}
             onClick={() => {
-              setActive(number);
+              selectNumberHandler(number);
             }}
           >
             {number}

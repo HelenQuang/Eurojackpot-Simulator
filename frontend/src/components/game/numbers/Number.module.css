@@ -1,4 +1,4 @@
-.number-box {
+.numberBox {
   display: flex;
   flex-direction: column;
   margin: 0 1rem 2rem;
@@ -8,7 +8,7 @@
   margin-bottom: 0.8rem;
 }
 
-.number-grid {
+.numberGrid {
   display: grid;
   grid-gap: 0.25rem;
   width: 100%;
