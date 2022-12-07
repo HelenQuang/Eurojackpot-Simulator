@@ -65,7 +65,7 @@ const ResponsiveAppBar = () => {
         color: "var(--black)",
         height: {
           md: "4rem",
-          xs: "3.2rem",
+          xs: "3.5rem",
         },
       }}
       elevation={0}
@@ -73,7 +73,7 @@ const ResponsiveAppBar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="a"
             href="/"
@@ -133,7 +133,7 @@ const ResponsiveAppBar = () => {
           </Box>
 
           <Typography
-            variant="h5"
+            variant="h3"
             noWrap
             component="a"
             href="/"
@@ -142,6 +142,7 @@ const ResponsiveAppBar = () => {
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
               fontWeight: 700,
+              fontSize: "1rem",
               color: "var(--black)",
               textDecoration: "none",
             }}
@@ -156,7 +157,12 @@ const ResponsiveAppBar = () => {
                 onClick={() => {
                   navigate(`${page.to}`);
                 }}
-                sx={{ my: 2, color: "var(--black)", display: "block" }}
+                sx={{
+                  my: 2,
+                  color: "var(--black)",
+                  display: "block",
+                  fontWeight: 700,
+                }}
               >
                 {page.name}
               </Button>

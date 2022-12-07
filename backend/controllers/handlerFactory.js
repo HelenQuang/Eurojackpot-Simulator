@@ -9,9 +9,7 @@ exports.getAll = (Model) =>
       return next(new AppError("Cannot find any document", 404));
     }
 
-    res
-      .status(200)
-      .json({ status: "success", results: doc.length, data: { data: doc } });
+    res.status(200).json({ status: "success", results: doc.length, data: doc });
   });
 
 exports.getSpecificOne = (Model) =>
@@ -22,7 +20,7 @@ exports.getSpecificOne = (Model) =>
       return next(new AppError("Cannot find any document with this ID", 404));
     }
 
-    res.status(200).json({ status: "success", data: { data: doc } });
+    res.status(200).json({ status: "success", data: doc });
   });
 
 exports.updateOne = (Model) =>
@@ -36,14 +34,14 @@ exports.updateOne = (Model) =>
       return next(new AppError("Cannot find any document with this ID", 404));
     }
 
-    res.status(200).json({ status: "success", data: { data: doc } });
+    res.status(200).json({ status: "success", data: doc });
   });
 
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const newDoc = await Model.create(req.body);
 
-    res.status(201).json({ status: "success", data: { data: newDoc } });
+    res.status(201).json({ status: "success", data: newDoc });
   });
 
 exports.deleteOne = (Model) =>

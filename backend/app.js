@@ -35,7 +35,7 @@ app.use(helmet());
 
 //To limit the requests coming from 1 IP => block these requests
 const limiter = rateLimit({
-  max: 100, //number of max requests
+  max: 200, //number of max requests
   windowMs: 60 * 60 * 1000, //Milisecond time window (1hour)
   message: "Too many requests from this IP, please try again in an hour!",
 });
