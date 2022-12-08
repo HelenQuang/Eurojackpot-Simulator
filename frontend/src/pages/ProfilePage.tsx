@@ -10,7 +10,7 @@ import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
 const ProfilePage = () => {
-  const { isLoading, error, data } = useQuery("user-profile", () => {
+  const { isLoading, isError, error, data } = useQuery("user-profile", () => {
     return axios.get("/api/v1/users/638674a16b97db4f84e44523");
   });
 
@@ -22,6 +22,13 @@ const ProfilePage = () => {
       (accumulator: number, currentValue: number) => accumulator + currentValue,
       0
     );
+
+  let errMessage;
+  if (axios.isAxiosError(error) && error.response) {
+    errMessage = error.response.data.message;
+  } else if (error instanceof Error) {
+    errMessage = error.message;
+  }
 
   return (
     <div
@@ -43,7 +50,7 @@ const ProfilePage = () => {
         />
       )}
 
-      {/* {error && <p>{error.response.data.message}</p>} */}
+      {isError && <p>{errMessage}</p>}
 
       {!isLoading && data && (
         <ul
@@ -82,7 +89,7 @@ const ProfilePage = () => {
             style={{ display: "flex", justifyContent: "center", gap: "1rem" }}
           >
             <AddCardIcon />
-            <span>Total topup: 10 €</span>
+            <span>Total topup: 30 €</span>
           </li>
           <li
             style={{ display: "flex", justifyContent: "center", gap: "1rem" }}

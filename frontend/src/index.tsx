@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import CustomTheme from "./components/layout/CustomTheme";
 import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "@mui/material";
 import { BrowserRouter as Router } from "react-router-dom";
 import { store } from "./store";
@@ -25,6 +26,7 @@ root.render(
           </Provider>
         </Router>
       </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </QueryClientProvider>
   </React.StrictMode>
 );
