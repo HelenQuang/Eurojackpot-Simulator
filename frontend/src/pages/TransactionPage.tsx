@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+
 import {
   FormControl,
   FormLabel,
@@ -7,8 +7,6 @@ import {
   FormControlLabel,
   Radio,
   Button,
-  CircularProgress,
-  Alert,
 } from "@mui/material";
 
 const topupAmount = [

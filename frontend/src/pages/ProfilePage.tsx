@@ -1,18 +1,21 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
+import Loader from "../components/layout/Loader";
 import PaidIcon from "@mui/icons-material/Paid";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EmailIcon from "@mui/icons-material/Email";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
-import PropagateLoader from "react-spinners/PropagateLoader";
 
 const ProfilePage = () => {
-  const { isLoading, isError, error, data } = useQuery("user-profile", () => {
-    return axios.get("/api/v1/users/638674a16b97db4f84e44523");
-  });
+  const { isLoading, isError, error, data, isFetching } = useQuery(
+    "user-profile",
+    () => {
+      return axios.get("/api/v1/users/638674a16b97db4f84e44523");
+    }
+  );
 
   const totalWin = data?.data.data.lotteries
     .map((ticket: { prize: number }) => {
@@ -41,14 +44,7 @@ const ProfilePage = () => {
       }}
     >
       <h2>User Profile</h2>
-      {isLoading && (
-        <PropagateLoader
-          color="var(--dark-purple)"
-          size={10}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-      )}
+      {isLoading && isFetching && <Loader />}
 
       {isError && <p>{errMessage}</p>}
 
