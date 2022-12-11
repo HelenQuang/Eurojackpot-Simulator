@@ -1,6 +1,6 @@
-import { useQuery } from "react-query";
 import axios from "axios";
 
+import { useUserProfile } from "../hooks/userHooks";
 import Loader from "../components/layout/Loader";
 import PaidIcon from "@mui/icons-material/Paid";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -10,11 +10,8 @@ import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 
 const ProfilePage = () => {
-  const { isLoading, isError, error, data, isFetching } = useQuery(
-    "user-profile",
-    () => {
-      return axios.get("/api/v1/users/638674a16b97db4f84e44523");
-    }
+  const { isLoading, isError, error, data, isFetching } = useUserProfile(
+    "638674a16b97db4f84e44523"
   );
 
   const totalWin = data?.data.data.lotteries
