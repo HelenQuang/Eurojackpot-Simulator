@@ -26,8 +26,6 @@ const ProfilePage = () => {
   let errMessage;
   if (axios.isAxiosError(error) && error.response) {
     errMessage = error.response.data.message;
-  } else if (error instanceof Error) {
-    errMessage = error.message;
   }
 
   return (

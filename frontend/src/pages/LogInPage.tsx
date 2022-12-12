@@ -1,3 +1,6 @@
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   TextField,
@@ -9,10 +12,31 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useUserLogin } from "../hooks/userHooks";
+import Loader from "../components/layout/Loader";
 
 const LogInPage = () => {
-  const dispatch = useAppDispatch();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
+  const { mutate, isLoading, isSuccess, isError, error, data } = useUserLogin();
+
+  const submitHandler = () => {
+    mutate({ email, password });
+
+    setEmail("");
+    setPassword("");
+    navigate("/");
+  };
+
+  if (isSuccess) {
+    console.log(data.data);
+  }
+
+  let errMessage;
+  if (axios.isAxiosError(error) && error.response) {
+    errMessage = error.response.data.message;
+  }
 
   return (
     <Box
@@ -31,6 +55,8 @@ const LogInPage = () => {
       <Typography component="h1" variant="h6" sx={{ fontWeight: "bold" }}>
         Log In
       </Typography>
+      {isLoading && <Loader />}
+      {isError && <p>{errMessage}</p>}
       <Box
         my={4}
         sx={{
@@ -39,13 +65,31 @@ const LogInPage = () => {
           alignItems: "center",
         }}
       >
-        <TextField required id="email" label="Email Address" sx={{ mb: 3 }} />
-        <TextField required id="password" label="Password" type="password" />
+        <TextField
+          required
+          id="email"
+          label="Email Address"
+          sx={{ mb: 3 }}
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
+        <TextField
+          required
+          id="password"
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
         <Button
           variant="contained"
           sx={{ my: 3, fontWeight: "bold" }}
           endIcon={<SendOutlinedIcon />}
-          type="submit"
+          onClick={submitHandler}
         >
           Log In
         </Button>
