@@ -38,6 +38,12 @@ const ResponsiveAppBar = () => {
     null
   );
 
+  // const { photo } = localStorage.getItem("userInfo")
+  //   ? JSON.parse(localStorage.getItem("userInfo"))
+  //   : JSON.parse("");
+
+  // console.log(photo);
+
   const handleOpenNavMenu = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(e.currentTarget);
   };
@@ -49,11 +55,6 @@ const ResponsiveAppBar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-  // const handleCloseUserMenu = (link: any) => {
-  //   setAnchorElUser(null);
-  //   navigate(`${link}`);
-  // };
 
   const navigate = useNavigate();
 

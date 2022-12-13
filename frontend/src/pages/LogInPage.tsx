@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -23,12 +23,15 @@ const LogInPage = () => {
 
   const submitHandler = () => {
     mutate({ email, password });
-    navigate("/");
   };
 
-  if (isSuccess) {
-    console.log(data.data);
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      localStorage.setItem("token", JSON.stringify(data.data.token));
+      localStorage.setItem("userInfo", JSON.stringify(data.data.data.user));
+      navigate("/");
+    }
+  }, [isSuccess]);
 
   let errMessage;
   if (axios.isAxiosError(error) && error.response) {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Box, TextField, Avatar, Typography, Button } from "@mui/material";
@@ -13,27 +13,30 @@ const SignUpPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+  const [errMessage, setErrMessage] = useState<string | null>();
+
   const navigate = useNavigate();
   const { mutate, isLoading, isSuccess, isError, error, data } =
     useUserSignup();
 
-  let errMessage;
-
   const submitHandler = () => {
     if (password === passwordConfirm) {
       mutate({ name, email, password, passwordConfirm });
-      navigate("/");
     } else {
-      errMessage = "Passwords do not match. Please try again!";
+      setErrMessage("Passwords do not match. Please try again!");
     }
   };
 
-  if (isSuccess) {
-    console.log(data.data);
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      localStorage.setItem("token", JSON.stringify(data.data.token));
+      localStorage.setItem("userInfo", JSON.stringify(data.data.data.user));
+      navigate("/");
+    }
+  }, [isSuccess]);
 
   if (axios.isAxiosError(error) && error.response) {
-    errMessage = error.response.data.message;
+    setErrMessage(error.response.data.message);
   }
 
   return (
@@ -54,7 +57,7 @@ const SignUpPage = () => {
         Sign Up
       </Typography>
       {isLoading && <Loader />}
-      {isError && errMessage && <p>{errMessage}</p>}
+      {(isError || errMessage) && <p>{errMessage}</p>}
       <Box
         my={4}
         sx={{
