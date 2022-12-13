@@ -23,9 +23,6 @@ const LogInPage = () => {
 
   const submitHandler = () => {
     mutate({ email, password });
-
-    setEmail("");
-    setPassword("");
     navigate("/");
   };
 
