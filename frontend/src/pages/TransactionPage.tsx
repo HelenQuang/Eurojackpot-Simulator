@@ -1,5 +1,5 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 import {
   FormControl,
   FormLabel,
@@ -8,6 +8,8 @@ import {
   Radio,
   Button,
 } from "@mui/material";
+import { useStripeTransaction } from "../hooks/lotteryHooks";
+import Loader from "../components/layout/Loader";
 
 const topupAmount = [
   { id: "price_1MAZdbJSeoXs5toMHxhk6MwL", amount: "10" },
@@ -18,26 +20,30 @@ const topupAmount = [
 
 const TransactionPage = () => {
   const [selectedAmount, setSelectedAmount] = useState<string>("10");
+  const [errMessage, setErrMessage] = useState<string | null>(null);
 
   const selectedAmountId = topupAmount.find(
     (item) => item.amount === selectedAmount
   )!.id;
 
-  const createTransaction = async () => {
-    await fetch("/api/v1/lotteries/createTransaction", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: selectedAmountId }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        if (res.url) {
-          window.open(res.url, "_blank");
-        }
-      });
+  const { mutate, isLoading, isError, isSuccess, data, error } =
+    useStripeTransaction();
+
+  // if (axios.isAxiosError(error) && error.response) {
+  //   setErrMessage(error.response.data.message);
+  // }
+
+  const userInfo = JSON.parse(localStorage.getItem("userInfo")!);
+
+  const createTransaction = () => {
+    mutate(selectedAmountId);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      window.open(data.data.url, "_blank");
+    }
+  }, [isSuccess]);
 
   return (
     <div
@@ -50,6 +56,8 @@ const TransactionPage = () => {
       }}
     >
       <h2>Topup Money</h2>
+      {isLoading && <Loader />}
+      {/* {isError && <p>{errMessage}</p>} */}
       <FormControl>
         <FormLabel id="top-up" style={{ marginBottom: "1rem" }}>
           Please select the amount of money you want to topup
