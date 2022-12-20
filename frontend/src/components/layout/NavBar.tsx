@@ -14,8 +14,6 @@ import {
   Tooltip,
   MenuItem,
 } from "@mui/material";
-
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const pages = [
@@ -23,14 +21,15 @@ const pages = [
   { name: "Rule", to: "/rule" },
   { name: "About", to: "/about" },
 ];
-const settings = [
+
+const detailPages = [
   { name: "Profile", to: "/profile" },
   { name: "Transaction", to: "/transaction" },
   { name: "History", to: "/history" },
-  { name: "Logout", to: "/" },
 ];
 
 const ResponsiveAppBar = () => {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -38,25 +37,25 @@ const ResponsiveAppBar = () => {
     null
   );
 
-  // const { photo } = localStorage.getItem("userInfo")
-  //   ? JSON.parse(localStorage.getItem("userInfo"))
-  //   : JSON.parse("");
-
-  // console.log(photo);
+  const userInfo = JSON.parse(localStorage.getItem("userInfo")!);
 
   const handleOpenNavMenu = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(e.currentTarget);
-  };
-
-  const handleOpenUserMenu = (e: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(e.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const navigate = useNavigate();
+  const handleOpenUserMenu = (e: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(e.currentTarget);
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   return (
     <AppBar
@@ -170,45 +169,66 @@ const ResponsiveAppBar = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title={""}>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ bgcolor: "var(--dark-yellow)" }}>
-                  <PersonOutlineOutlinedIcon sx={{ color: "var(--black)" }} />
-                </Avatar>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+          {userInfo ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title={""}>
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    sx={{ bgcolor: "var(--dark-yellow)" }}
+                    alt={userInfo.name}
+                    src={`./img/users/${userInfo.photo}`}
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={() => {
+                  setAnchorElUser(null);
+                }}
+              >
+                {detailPages.map((setting) => (
+                  <MenuItem
+                    key={setting.name}
+                    onClick={() => {
+                      navigate(`${setting.to}`);
+                      setAnchorElUser(null);
+                    }}
+                  >
+                    <Typography textAlign="center">{setting.name}</Typography>
+                  </MenuItem>
+                ))}
+                <MenuItem onClick={logoutHandler}>
+                  <Typography textAlign="center">Log Out</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          ) : (
+            <Button
+              onClick={() => {
+                navigate("/login");
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={() => {
-                setAnchorElUser(null);
+              sx={{
+                my: 2,
+                color: "var(--black)",
+                display: "block",
+                fontWeight: 700,
               }}
             >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting.name}
-                  onClick={() => {
-                    navigate(`${setting.to}`);
-                    setAnchorElUser(null);
-                  }}
-                >
-                  <Typography textAlign="center">{setting.name}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+              Log In
+            </Button>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
