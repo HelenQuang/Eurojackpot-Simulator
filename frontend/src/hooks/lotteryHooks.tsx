@@ -1,8 +1,18 @@
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import axios from "axios";
 
-const lotteryHooks = () => {
-  return <div>lotteryHooks</div>;
+const createStripeTransaction = (amountId: string) => {
+  return axios.post(
+    "/api/v1/lotteries/createTransaction",
+    { id: amountId },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 };
 
-export default lotteryHooks;
+export const useStripeTransaction = () => {
+  return useMutation(createStripeTransaction);
+};
