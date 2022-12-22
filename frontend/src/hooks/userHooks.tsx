@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "react-query";
+import { useMutation } from "react-query";
 import axios from "axios";
 
 const login = ({ email, password }: { email: string; password: string }) => {
@@ -41,14 +41,4 @@ export const useUserLogin = () => {
 
 export const useUserSignup = () => {
   return useMutation(signup);
-};
-
-export const useUserProfile = (userId: string) => {
-  return useQuery(
-    ["user-profile", userId],
-    () => {
-      return axios.get(`/api/v1/users/${userId}`);
-    },
-    { refetchOnMount: false, refetchOnWindowFocus: false }
-  );
 };
