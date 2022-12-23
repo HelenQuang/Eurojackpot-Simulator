@@ -9,7 +9,6 @@ interface userInfoModel {
   role: string;
   lotteries?: [lotteryModel];
   transaction: [transactionModel];
-  token?: string;
 }
 
 export default userInfoModel;
