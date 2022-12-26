@@ -49,7 +49,7 @@ const userSchema = mongoose.Schema({
     },
   ],
   gameAccount: { type: Number, default: 100, min: 0 },
-  lotteries: Array,
+  lotteries: Lottery,
   active: { type: Boolean, default: true, select: false },
   passwordChangedAt: Date,
   passwordResetToken: String,
