@@ -6,7 +6,17 @@
     "photo": "user-1.jpg",
     "password": "$2a$10$dDmeIksnJgFHmcqRkdE6seuPPp5bHvRXsT.NrpJkaRK1ZIxNEUOru",
     "active": true,
-    "role": "admin"
+    "role": "admin",
+    "transaction": [
+      { "amount": 10, "paidAt": "2021-03-11T10:00:00.000Z" },
+      { "amount": 20, "paidAt": "2021-05-02T09:00:00.000Z" }
+    ],
+    "gameAccount": 100,
+    "lotteries": [
+      "4366e92f-cc5b-4ec6-8b84-9e3c28aba00b",
+      "11f450f8-2f25-4ca5-8f35-7b6ec28970f3",
+      "3a6ae264-4db6-4e6a-88b6-585d0857cd6d"
+    ]
   },
   {
     "id": 2,
@@ -19,6 +29,12 @@
     "transaction": [
       { "amount": 10, "paidAt": "2021-03-11T10:00:00.000Z" },
       { "amount": 20, "paidAt": "2021-05-02T09:00:00.000Z" }
+    ],
+    "gameAccount": 100,
+    "lotteries": [
+      "4366e92f-cc5b-4ec6-8b84-9e3c28aba00b",
+      "11f450f8-2f25-4ca5-8f35-7b6ec28970f3",
+      "3a6ae264-4db6-4e6a-88b6-585d0857cd6d"
     ]
   },
   {
@@ -28,7 +44,17 @@
     "photo": "user-3.jpg",
     "password": "$2a$10$sI/R4yriZj1I3CgWzm3EXeL16Nhfw13aDaEEDg7nZoNUjgu3vh6fK",
     "role": "user",
-    "active": true
+    "active": true,
+    "transaction": [
+      { "amount": 10, "paidAt": "2021-03-11T10:00:00.000Z" },
+      { "amount": 20, "paidAt": "2021-05-02T09:00:00.000Z" }
+    ],
+    "gameAccount": 100,
+    "lotteries": [
+      "4366e92f-cc5b-4ec6-8b84-9e3c28aba00b",
+      "11f450f8-2f25-4ca5-8f35-7b6ec28970f3",
+      "3a6ae264-4db6-4e6a-88b6-585d0857cd6d"
+    ]
   },
   {
     "id": 4,
@@ -37,7 +63,17 @@
     "photo": "user-4.jpg",
     "password": "$2a$10$IUJuQO5pecpHeviYLUSZNuk3YAh8JjTsp9LSMRfce/k9Oy09gmrgK",
     "role": "user",
-    "active": true
+    "active": true,
+    "transaction": [
+      { "amount": 10, "paidAt": "2021-03-11T10:00:00.000Z" },
+      { "amount": 20, "paidAt": "2021-05-02T09:00:00.000Z" }
+    ],
+    "gameAccount": 100,
+    "lotteries": [
+      "4366e92f-cc5b-4ec6-8b84-9e3c28aba00b",
+      "11f450f8-2f25-4ca5-8f35-7b6ec28970f3",
+      "3a6ae264-4db6-4e6a-88b6-585d0857cd6d"
+    ]
   },
   {
     "id": 5,
@@ -46,6 +82,16 @@
     "photo": "user-5.jpg",
     "password": "$2a$12$meCmKN3LYdoIClZBcq/l3OV.zRdssjf7I1QIuHdEVmez14ctTbBwW",
     "role": "user",
-    "active": true
+    "active": true,
+    "transaction": [
+      { "amount": 10, "paidAt": "2021-03-11T10:00:00.000Z" },
+      { "amount": 20, "paidAt": "2021-05-02T09:00:00.000Z" }
+    ],
+    "gameAccount": 100,
+    "lotteries": [
+      "4366e92f-cc5b-4ec6-8b84-9e3c28aba00b",
+      "11f450f8-2f25-4ca5-8f35-7b6ec28970f3",
+      "3a6ae264-4db6-4e6a-88b6-585d0857cd6d"
+    ]
   }
 ]
