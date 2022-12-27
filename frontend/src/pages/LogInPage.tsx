@@ -27,11 +27,12 @@ const LogInPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      console.log(data.data.data.user);
       localStorage.setItem("token", JSON.stringify(data.data.token));
       localStorage.setItem("userInfo", JSON.stringify(data.data.data.user));
       navigate("/");
     }
-  }, [isSuccess]);
+  }, [isSuccess, navigate]);
 
   let errMessage;
   if (axios.isAxiosError(error) && error.response) {
