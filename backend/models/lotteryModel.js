@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const lotterySchema = new mongoose.Schema({
+  id: String,
   tickets: [
     {
       mainNum: [
