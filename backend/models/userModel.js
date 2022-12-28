@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-const Lottery = require("./lotteryModel");
 
 const userSchema = mongoose.Schema({
   name: { type: String, required: [true, "Please tell us your name"] },
@@ -49,11 +48,18 @@ const userSchema = mongoose.Schema({
     },
   ],
   gameAccount: { type: Number, default: 100, min: 0 },
-  lotteries: Lottery,
+  lotteries: [{ type: mongoose.Schema.ObjectId, ref: "Lottery" }],
   active: { type: Boolean, default: true, select: false },
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+});
+
+/////////////////////////////////////////////
+//MIDDLEWARE to populate lotteries data before .find() query
+userSchema.pre(/^find/, function (next) {
+  this.populate("lotteries");
+  next();
 });
 
 /////////////////////////////////////////////
