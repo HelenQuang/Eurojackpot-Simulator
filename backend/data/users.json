@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "name": "Admin User",
     "email": "admin@example.com",
     "photo": "user-1.jpg",
@@ -12,14 +12,10 @@
       { "amount": 20, "paidAt": "2021-05-02T09:00:00.000Z" }
     ],
     "gameAccount": 100,
-    "lotteries": [
-      "4366e92f-cc5b-4ec6-8b84-9e3c28aba00b",
-      "11f450f8-2f25-4ca5-8f35-7b6ec28970f3",
-      "3a6ae264-4db6-4e6a-88b6-585d0857cd6d"
-    ]
+    "lotteries": []
   },
   {
-    "id": 2,
+    "id": "2",
     "name": "Helen Quang",
     "email": "helen@example.com",
     "photo": "user-2.jpg",
@@ -31,14 +27,10 @@
       { "amount": 20, "paidAt": "2021-05-02T09:00:00.000Z" }
     ],
     "gameAccount": 100,
-    "lotteries": [
-      "4366e92f-cc5b-4ec6-8b84-9e3c28aba00b",
-      "11f450f8-2f25-4ca5-8f35-7b6ec28970f3",
-      "3a6ae264-4db6-4e6a-88b6-585d0857cd6d"
-    ]
+    "lotteries": []
   },
   {
-    "id": 3,
+    "id": "3",
     "name": "Ha Quang",
     "email": "ha@example.com",
     "photo": "user-3.jpg",
@@ -50,14 +42,10 @@
       { "amount": 20, "paidAt": "2021-05-02T09:00:00.000Z" }
     ],
     "gameAccount": 100,
-    "lotteries": [
-      "4366e92f-cc5b-4ec6-8b84-9e3c28aba00b",
-      "11f450f8-2f25-4ca5-8f35-7b6ec28970f3",
-      "3a6ae264-4db6-4e6a-88b6-585d0857cd6d"
-    ]
+    "lotteries": []
   },
   {
-    "id": 4,
+    "id": "4",
     "name": "Bao Nguyen",
     "email": "bao@example.com",
     "photo": "user-4.jpg",
@@ -69,14 +57,10 @@
       { "amount": 20, "paidAt": "2021-05-02T09:00:00.000Z" }
     ],
     "gameAccount": 100,
-    "lotteries": [
-      "4366e92f-cc5b-4ec6-8b84-9e3c28aba00b",
-      "11f450f8-2f25-4ca5-8f35-7b6ec28970f3",
-      "3a6ae264-4db6-4e6a-88b6-585d0857cd6d"
-    ]
+    "lotteries": []
   },
   {
-    "id": 5,
+    "id": "5",
     "name": "Cam The Meow",
     "email": "cam@example.com",
     "photo": "user-5.jpg",
@@ -88,10 +72,6 @@
       { "amount": 20, "paidAt": "2021-05-02T09:00:00.000Z" }
     ],
     "gameAccount": 100,
-    "lotteries": [
-      "4366e92f-cc5b-4ec6-8b84-9e3c28aba00b",
-      "11f450f8-2f25-4ca5-8f35-7b6ec28970f3",
-      "3a6ae264-4db6-4e6a-88b6-585d0857cd6d"
-    ]
+    "lotteries": []
   }
 ]
