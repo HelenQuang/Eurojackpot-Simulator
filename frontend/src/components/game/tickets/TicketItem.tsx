@@ -1,10 +1,10 @@
 import { Box, Button } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import lotteryModel from "../../../models/lotteryModel";
+import ticketModel from "../../../models/ticketModel";
 
 interface ticketProps {
-  ticket: lotteryModel;
+  ticket: ticketModel;
 }
 
 const TicketItem = ({ ticket }: ticketProps) => {
@@ -33,7 +33,7 @@ const TicketItem = ({ ticket }: ticketProps) => {
       >
         {ticket.mainNum.map((number) => (
           <Box
-            key={`${ticket.id}_${number}`}
+            key={`${ticket._id}_${number}`}
             sx={{
               alignItems: "center",
               backgroundColor: "var(--white)",
@@ -55,7 +55,7 @@ const TicketItem = ({ ticket }: ticketProps) => {
 
         {ticket.starNum.map((number) => (
           <Box
-            key={`${ticket.id}_${number}`}
+            key={`${ticket._id}_${number}`}
             sx={{
               alignItems: "center",
               backgroundColor: "var(--white)",
