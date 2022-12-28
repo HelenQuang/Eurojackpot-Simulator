@@ -2,11 +2,12 @@ const fs = require("fs");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const colors = require("colors");
+const path = require("path");
 
 const User = require("../models/userModel");
 const Lottery = require("../models/lotteryModel");
 
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: path.resolve(__dirname, "./../../config.env") });
 
 const DB = process.env.DATABASE.replace(
   "<PASSWORD>",
