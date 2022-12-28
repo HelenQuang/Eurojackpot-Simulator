@@ -35,7 +35,6 @@ const createAndSendToken = (user, statusCode, res) => {
     token,
     data: { user },
   });
-  console.log(user);
 };
 
 exports.signUp = catchAsync(async (req, res, next) => {
@@ -64,7 +63,7 @@ exports.logIn = catchAsync(async (req, res, next) => {
       new AppError("Incorrect email or password. Please try again", 401)
     );
   }
-  console.log(user.lotteries, "user");
+
   createAndSendToken(user, 200, res);
 });
 
