@@ -11,9 +11,14 @@ const ticketListExample: any[] = [
   { id: "8", mainNum: [31, 32, 33, 34, 35], starNum: [6, 8] },
   { id: "9", mainNum: [41, 42, 43, 44, 45], starNum: [2, 9] },
   { id: "10", mainNum: [8, 17, 26, 39, 49], starNum: [4, 5] },
+  { id: "11", mainNum: [31, 32, 33, 34, 35], starNum: [6, 8] },
+  { id: "12", mainNum: [41, 42, 43, 44, 45], starNum: [2, 9] },
+  { id: "13", mainNum: [8, 17, 26, 39, 49], starNum: [4, 5] },
 ];
 
 const TicketList = () => {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo")!);
+
   return (
     <div>
       {ticketListExample.length === 0 && <p>Please select a ticket</p>}
