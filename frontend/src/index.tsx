@@ -7,8 +7,6 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "@mui/material";
 import { BrowserRouter as Router } from "react-router-dom";
-import { store } from "./store";
-import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,9 +19,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={CustomTheme}>
         <Router>
-          <Provider store={store}>
-            <App />
-          </Provider>
+          <App />
         </Router>
       </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
