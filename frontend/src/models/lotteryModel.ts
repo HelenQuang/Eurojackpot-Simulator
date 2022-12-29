@@ -1,7 +1,12 @@
+import ticketModel from "./ticketModel";
+
 interface lotteryModel {
-  id: String;
-  mainNum: number[];
-  starNum: number[];
+  _id: string;
+  cost: Number;
+  playAt: Date;
+  prize: Number;
+  result: [ticketModel];
+  tickets: [ticketModel];
 }
 
 export default lotteryModel;
