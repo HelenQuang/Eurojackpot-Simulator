@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 
 const login = ({ email, password }: { email: string; password: string }) => {
@@ -35,10 +35,20 @@ const signup = ({
   );
 };
 
+const getUserInfo = (userToken: string) => {
+  return axios.get("/api/v1/users/me", {
+    headers: { Authorization: userToken },
+  });
+};
+
 export const useUserLogin = () => {
   return useMutation(login);
 };
 
 export const useUserSignup = () => {
   return useMutation(signup);
+};
+
+export const useGetUserInfo = (token: string) => {
+  return useQuery(["userInfo", token], () => getUserInfo(token));
 };
