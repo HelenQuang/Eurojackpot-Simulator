@@ -31,7 +31,7 @@ const TicketList = () => {
 
       {ticketListExample.length > 0 &&
         ticketListExample.map((ticket) => (
-          <TicketItem key={ticket.id} ticket={ticket} />
+          <TicketItem key={ticket.id} ticket={ticket} showIcon={true} />
         ))}
     </div>
   );
