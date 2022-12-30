@@ -5,9 +5,10 @@ import ticketModel from "../../../models/ticketModel";
 
 interface ticketProps {
   ticket: ticketModel;
+  showIcon: Boolean;
 }
 
-const TicketItem = ({ ticket }: ticketProps) => {
+const TicketItem = ({ ticket, showIcon }: ticketProps) => {
   return (
     <Box
       sx={{
@@ -74,11 +75,13 @@ const TicketItem = ({ ticket }: ticketProps) => {
         ))}
       </Box>
 
-      <Button
-        type="button"
-        startIcon={<DeleteForeverIcon />}
-        style={{ color: "var(--dark-purple)" }}
-      />
+      {showIcon && (
+        <Button
+          type="button"
+          startIcon={<DeleteForeverIcon />}
+          style={{ color: "var(--dark-purple)" }}
+        />
+      )}
     </Box>
   );
 };
