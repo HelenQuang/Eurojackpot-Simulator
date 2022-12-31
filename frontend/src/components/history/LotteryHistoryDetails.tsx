@@ -13,7 +13,6 @@ import TicketItem from "../game/tickets/TicketItem";
 import LotteryTable from "./LotteryTable";
 
 const LotteryHistoryDetails = ({ lottery }: { lottery: lotteryModel }) => {
-  console.log(lottery);
   return (
     <Accordion>
       <AccordionSummary
