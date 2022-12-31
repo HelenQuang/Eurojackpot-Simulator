@@ -21,21 +21,21 @@ const LotteryTable = ({ result, tickets }: LotteryTableProps) => {
       <Table sx={{ minWidth: 650 }} aria-label="Game detail table">
         <TableHead>
           <TableRow>
-            <TableCell>Line</TableCell>
-            <TableCell align="left">Numbers</TableCell>
-            <TableCell align="left">Hits</TableCell>
+            <TableCell>No.</TableCell>
+            <TableCell align="center">Tickets</TableCell>
+            <TableCell align="center">Hits</TableCell>
           </TableRow>
         </TableHead>
-        {/* <TableBody>
+        <TableBody>
           {tickets.map((ticket, index) => (
             <LotteryTableItem
               key={index}
-              // resultLottery={resultLottery}
-              lottery={lottery}
+              result={result}
+              ticket={ticket}
               index={index}
             />
           ))}
-        </TableBody> */}
+        </TableBody>
       </Table>
     </TableContainer>
   );
