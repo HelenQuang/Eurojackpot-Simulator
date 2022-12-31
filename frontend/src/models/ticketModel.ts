@@ -1,5 +1,5 @@
 interface ticketModel {
-  _id: String;
+  _id: String | null;
   mainNum: number[];
   starNum: number[];
 }
