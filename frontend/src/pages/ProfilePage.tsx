@@ -1,21 +1,23 @@
-import { useEffect } from "react";
+import axios from "axios";
 import PaidIcon from "@mui/icons-material/Paid";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EmailIcon from "@mui/icons-material/Email";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
-import { useNavigate } from "react-router-dom";
+
+import { useGetUserInfo } from "../hooks/userHooks";
+import Loader from "../components/layout/Loader";
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
-  const userInfo = JSON.parse(localStorage.getItem("userInfo")!);
+  const userToken = JSON.parse(localStorage.getItem("token")!);
 
-  useEffect(() => {
-    if (!userInfo) {
-      navigate("/");
-    }
-  }, [userInfo]);
+  const { isLoading, data, isError, error } = useGetUserInfo(userToken);
+
+  let errMessage;
+  if (axios.isAxiosError(error) && error.response) {
+    errMessage = error.response.data.message;
+  }
 
   return (
     <div
@@ -29,7 +31,10 @@ const ProfilePage = () => {
     >
       <h2>User Profile</h2>
 
-      {userInfo && (
+      {isLoading && <Loader />}
+      {isError && <p>{errMessage}</p>}
+
+      {data && (
         <ul
           style={{
             display: "flex",
@@ -42,31 +47,43 @@ const ProfilePage = () => {
             style={{ display: "flex", justifyContent: "center", gap: "1rem" }}
           >
             <AccountCircleIcon />
-            Name: {userInfo.name}
+            Name: {data.data.data.name}
           </li>
           <li
             style={{ display: "flex", justifyContent: "center", gap: "1rem" }}
           >
             <EmailIcon />
-            Email: {userInfo.email}
+            Email: {data.data.data.email}
           </li>
           <li
             style={{ display: "flex", justifyContent: "center", gap: "1rem" }}
           >
             <SportsEsportsIcon />
-            <span>Total play: {userInfo.lotteries.length} games</span>
+            <span>Total play: {data.data.data.lotteries.length} games</span>
           </li>
           <li
             style={{ display: "flex", justifyContent: "center", gap: "1rem" }}
           >
             <PaidIcon />
-            <span>Current account: {userInfo.gameAccount} €</span>
+            <span>Current account: {data.data.data.gameAccount} €</span>
           </li>
           <li
             style={{ display: "flex", justifyContent: "center", gap: "1rem" }}
           >
             <AddCardIcon />
-            <span>Total topup: 30 €</span>
+            <span>
+              Total topup:{" "}
+              {data.data.data.transaction
+                .map((transaction: { amount: number }) => {
+                  return transaction.amount;
+                })
+                .reduce(
+                  (accumulator: number, currentValue: number) =>
+                    accumulator + currentValue,
+                  0
+                )}{" "}
+              €
+            </span>
           </li>
           <li
             style={{ display: "flex", justifyContent: "center", gap: "1rem" }}
@@ -74,7 +91,7 @@ const ProfilePage = () => {
             <CreditScoreIcon />
             <span>
               Total win:{" "}
-              {userInfo.lotteries
+              {data.data.data.lotteries
                 .map((ticket: { prize: number }) => {
                   return ticket.prize;
                 })
