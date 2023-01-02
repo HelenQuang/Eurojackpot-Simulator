@@ -34,8 +34,6 @@ const LotteryHistory = ({ lotteries }: { lotteries: lotteryModel[] }) => {
         sx={{
           backgroundColor: "var(--white)",
           padding: "2rem",
-          // width: "45rem",
-          // marginTop: "1rem",
         }}
       >
         <Box sx={{ minWidth: 120 }}>
