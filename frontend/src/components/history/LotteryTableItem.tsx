@@ -16,97 +16,88 @@ const LotteryTableItem = ({ result, ticket, index }: LotteryTableItemProps) => {
       ? matchMainNum.length
       : `${matchMainNum.length} + ${matchStarNum.length}`;
 
-  console.log(matchMainNum);
-  console.log(matchStarNum);
-  console.log(hitsAmount);
+  const mainNumHit = (inputNum: number) => {
+    return matchMainNum.includes(inputNum);
+  };
+
+  const starNumHit = (inputNum: number) => {
+    return matchStarNum.includes(inputNum);
+  };
+
   return (
     <TableRow>
       <TableCell>{index + 1}</TableCell>
-      <TableCell>
+      <TableCell align="center">
         <Box
           component="ol"
           sx={{
             listStyle: "none",
             display: "flex",
-            alignItems: "center",
+            justifyContent: "center",
             flexDirection: "row",
-            gap: "1rem",
-            alignContent: "flex-end",
+            gap: "0.5rem",
           }}
         >
-          {/* {lottery.number.map((number) => (
+          {ticket.mainNum.map((number) => (
             <Box
-              key={`${number}`}
+              key={`${number}_main`}
               component="li"
               sx={
-                numberHit(number)
+                mainNumHit(number)
                   ? {
                       alignItems: "center",
-                      backgroundColor: "#72008c",
-                      border: "2px solid transparent",
+                      backgroundColor: "var(--purple)",
                       borderRadius: "100%",
                       display: "flex",
                       height: "2rem",
-                      justifyContent: "center",
                       width: "2rem",
-                      color: "#fff",
-                      fontWeight: 500,
-                      borderColor: "#72008c",
+                      justifyContent: "center",
+                      color: "var(--white)",
                     }
                   : {
                       alignItems: "center",
-                      border: "2px solid transparent",
-                      borderRadius: "100%",
                       display: "flex",
                       height: "2rem",
-                      justifyContent: "center",
                       width: "2rem",
-                      fontWeight: 500,
+                      justifyContent: "center",
                     }
               }
             >
               {number}
             </Box>
           ))}
-          <StarIcon></StarIcon>
-          {lottery.starNumber.map((number) => (
+
+          <StarIcon sx={{ color: "var(--dark-yellow)", width: "2rem" }} />
+
+          {ticket.starNum.map((number) => (
             <Box
               key={`${number}_star`}
               sx={
-                starNumberHit(number)
+                starNumHit(number)
                   ? {
                       alignItems: "center",
-                      backgroundColor: "rgb(255, 207, 18)",
-                      border: "2px solid transparent",
+                      backgroundColor: "var(--yellow)",
                       borderRadius: "100%",
                       display: "flex",
                       height: "2rem",
-                      justifyContent: "center",
                       width: "2rem",
-                      color: "black",
-                      fontWeight: 500,
-                      borderColor: "rgb(255, 207, 18)",
+                      justifyContent: "center",
                     }
                   : {
                       alignItems: "center",
-                      border: "2px solid transparent",
-                      borderRadius: "100%",
                       display: "flex",
                       height: "2rem",
-                      justifyContent: "center",
-
                       width: "2rem",
-                      fontWeight: 500,
+                      justifyContent: "center",
                     }
               }
-              component="li"
             >
               {number}
             </Box>
-          ))} */}
+          ))}
         </Box>
       </TableCell>
-      <TableCell>{hitsAmount}</TableCell>
+      <TableCell align="center">{hitsAmount}</TableCell>
     </TableRow>
   );
 };
