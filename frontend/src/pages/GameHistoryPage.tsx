@@ -14,26 +14,6 @@ const GameHistoryPage = () => {
     errMessage = error.response.data.message;
   }
 
-  // let sortedLottery: lotteryModel[] = [];
-
-  // const [sortBy, setSortBy] = useState("new");
-
-  // const changeHandler = (e: SelectChangeEvent) => {
-  //   setSortBy(e.target.value as string);
-  // };
-
-  // if (sortBy === "old") {
-  //   sortedLottery = [...data?.data.data.lotteries].sort(function (a, b) {
-  //     return +new Date(a.createdAt) - +new Date(b.createdAt);
-  //   });
-  // }
-
-  // if (sortBy === "new") {
-  //   sortedLottery = [...data?.data.data.lotteries].sort(function (a, b) {
-  //     return +new Date(b.createdAt) - +new Date(a.createdAt);
-  //   });
-  // }
-
   return (
     <div
       style={{
@@ -50,37 +30,6 @@ const GameHistoryPage = () => {
       {isError && <p>{errMessage}</p>}
 
       {data && <LotteryHistory lotteries={data.data.data.lotteries} />}
-
-      {/* <Paper
-        elevation={5}
-        sx={{
-          backgroundColor: "var(--white)",
-          padding: "2rem",
-          marginTop: "1rem",
-        }}
-      >
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
-            <InputLabel id="sortBy">Sort By</InputLabel>
-            <Select
-              labelId="sortBySelect"
-              id="sortBySelect"
-              value={sortBy}
-              label="Sort By"
-              onChange={changeHandler}
-            >
-              <MenuItem value={"new"}>Newest</MenuItem>
-              <MenuItem value={"old"}>Oldest</MenuItem>
-            </Select>
-          </FormControl>
-        </Box> */}
-      {/* {sortedLottery.map((lotteryGame) => (
-          <GameDetails
-            key={lotteryGame.createdAt.toString()}
-            lotteryGame={lotteryGame}
-          />
-        ))} */}
-      {/* </Paper> */}
     </div>
   );
 };
