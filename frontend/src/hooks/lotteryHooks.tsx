@@ -1,5 +1,6 @@
 import { useMutation } from "react-query";
 import axios from "axios";
+import ticketModel from "../models/ticketModel";
 
 const createStripeTransaction = (amountId: string) => {
   return axios.post(
@@ -13,6 +14,22 @@ const createStripeTransaction = (amountId: string) => {
   );
 };
 
+const submitNewLottery = (tickets: ticketModel[]) => {
+  return axios.post(
+    "/api/v1/lotteries/",
+    { tickets },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
+
 export const useStripeTransaction = () => {
   return useMutation(createStripeTransaction);
+};
+
+export const useSubmitNewLottery = () => {
+  return useMutation(submitNewLottery);
 };
