@@ -1,14 +1,8 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ticketModel from "../../../models/ticketModel";
 
-interface ticketProps {
-  ticket: ticketModel;
-  showIcon: Boolean;
-}
-
-const TicketItem = ({ ticket, showIcon }: ticketProps) => {
+const TicketItem = ({ ticket }: { ticket: ticketModel }) => {
   return (
     <Box
       sx={{
@@ -34,7 +28,7 @@ const TicketItem = ({ ticket, showIcon }: ticketProps) => {
       >
         {ticket.mainNum.map((number) => (
           <Box
-            key={`${ticket._id}_${number}`}
+            key={`${ticket.id}_${number}`}
             sx={{
               alignItems: "center",
               backgroundColor: "var(--white)",
@@ -56,7 +50,7 @@ const TicketItem = ({ ticket, showIcon }: ticketProps) => {
 
         {ticket.starNum.map((number) => (
           <Box
-            key={`${ticket._id}_${number}`}
+            key={`${ticket.id}_${number}`}
             sx={{
               alignItems: "center",
               backgroundColor: "var(--white)",
@@ -74,14 +68,6 @@ const TicketItem = ({ ticket, showIcon }: ticketProps) => {
           </Box>
         ))}
       </Box>
-
-      {showIcon && (
-        <Button
-          type="button"
-          startIcon={<DeleteForeverIcon />}
-          style={{ color: "var(--dark-purple)" }}
-        />
-      )}
     </Box>
   );
 };
