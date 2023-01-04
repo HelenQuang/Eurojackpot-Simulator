@@ -5,9 +5,12 @@ import { v4 as uuidv4 } from "uuid";
 
 import MainNumberTable from "./MainNumberTable";
 import StarNumberTable from "./StarNumberTable";
+import LotteryResult from "../lotteries/LotteryResult";
 import ticketModel from "../../../models/ticketModel";
+import lotteryModel from "../../../models/lotteryModel";
 import generateLottery from "../../../utils/generateLottery";
-import { useSubmitNewLottery } from "../../../hooks/lotteryHooks";
+import { useGetUserInfo } from "../../../hooks/userHooks";
+import { useSubmitNewTickets } from "../../../hooks/lotteryHooks";
 
 import { Button } from "@mui/material";
 import ShuffleOnRoundedIcon from "@mui/icons-material/ShuffleOnRounded";
@@ -27,13 +30,17 @@ const TicketSelect = ({
   const [starNum, setStarNum] = useState<number[]>([]);
   const [maxMainNum, setMaxMainNum] = useState<boolean>(false);
   const [maxStarNum, setMaxStarNum] = useState<boolean>(false);
+  const [lotteryResult, setLotteryResult] = useState<lotteryModel | null>();
+  const [showLotteryResult, setShowLotteryResult] = useState<boolean>(false);
 
-  const userInfo = JSON.parse(localStorage.getItem("userInfo")!);
+  const userToken: string = JSON.parse(localStorage.getItem("token")!);
+  const { data: userInfo } = useGetUserInfo(userToken);
+
   const addTicketBtnActive = maxMainNum && maxStarNum;
   const payBtnActive = newTickets.length === 0 ? false : true;
+  const payAmount = newTickets.length * 2;
 
-  const { mutate, isLoading, isError, isSuccess, data, error } =
-    useSubmitNewLottery();
+  const { mutate: submitNewTickets, data } = useSubmitNewTickets();
 
   const addTicketHandler = (ticket: ticketModel) => {
     if (userInfo) {
@@ -45,9 +52,19 @@ const TicketSelect = ({
     if (!userInfo) {
       navigate("/login");
       alert("Please login before paying the lottery tickets.");
+    }
+
+    if (userInfo && userInfo.data.data.gameAccount >= payAmount) {
+      submitNewTickets(newTickets);
+      if (data) {
+        setLotteryResult(data.data.data.data);
+        setShowLotteryResult(true);
+        setNewTickets([]);
+      }
     } else {
-      mutate(newTickets);
-      console.log(data);
+      alert(
+        "There is not enough money in your game account to pay the lottery. Please top up the money before continue."
+      );
     }
   };
 
@@ -94,7 +111,7 @@ const TicketSelect = ({
             addTicketHandler({
               mainNum: mainNum,
               starNum: starNum,
-              _id: uuidv4(),
+              id: uuidv4(),
             })
           }
         >
@@ -123,8 +140,15 @@ const TicketSelect = ({
         disabled={!payBtnActive}
         onClick={payTicketHandler}
       >
-        Pay {newTickets.length * 2}.00 €
+        Pay {payAmount}.00 €
       </Button>
+      {showLotteryResult && lotteryResult && (
+        <LotteryResult
+          showLotteryResult={showLotteryResult}
+          setShowLotteryResult={setShowLotteryResult}
+          lotteryResult={lotteryResult}
+        />
+      )}
     </div>
   );
 };
