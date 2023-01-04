@@ -42,13 +42,15 @@ exports.submitLottery = catchAsync(async (req, res, next) => {
       cost: totalCost,
       result: lotteryResult,
       prize: totalPrize,
+      playAt: Date.now(),
     };
 
-    user.lotteries = [...user.lotteries, lottery];
+    const newLottery = await Lottery.create(lottery);
+
+    user.lotteries.push(newLottery);
 
     await user.save();
-
-    const newLottery = await Lottery.create(lottery);
+   
 
     res.status(201).json({ status: "success", data: { data: newLottery } });
   }
