@@ -1,23 +1,16 @@
-import { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import lotteryModel from "../../../models/lotteryModel";
 import LotteryHistoryDetails from "../../history/LotteryHistoryDetails";
 
 import { Dialog, DialogTitle } from "@mui/material";
 
-const LotteryResult = ({
-  lotteryResult,
-  showLotteryResult,
-  setShowLotteryResult,
-}: {
-  lotteryResult: lotteryModel;
-  showLotteryResult: boolean;
-  setShowLotteryResult: Dispatch<SetStateAction<boolean>>;
-}) => {
+const LotteryResult = ({ lotteryResult }: { lotteryResult: lotteryModel }) => {
+  const [open, setOpen] = useState<boolean>(true);
   return (
     <Dialog
-      open={window.innerWidth > 900 && showLotteryResult}
+      open={window.innerWidth > 900 && open}
       onClose={() => {
-        setShowLotteryResult(false);
+        setOpen(false);
       }}
       aria-labelledby="lottery result modal"
       aria-describedby="lottery result modal"
@@ -29,7 +22,9 @@ const LotteryResult = ({
       fullWidth={true}
       maxWidth="xl"
     >
-      <DialogTitle>ABC</DialogTitle>
+      <DialogTitle>
+        <strong>Thank you for playing with us!</strong>
+      </DialogTitle>
       <LotteryHistoryDetails lottery={lotteryResult} />
     </Dialog>
   );
