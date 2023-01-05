@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dispatch, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -31,7 +31,6 @@ const TicketSelect = ({
   const [maxMainNum, setMaxMainNum] = useState<boolean>(false);
   const [maxStarNum, setMaxStarNum] = useState<boolean>(false);
   const [lotteryResult, setLotteryResult] = useState<lotteryModel | null>();
-  const [showLotteryResult, setShowLotteryResult] = useState<boolean>(false);
 
   const userToken: string = JSON.parse(localStorage.getItem("token")!);
   const { data: userInfo } = useGetUserInfo(userToken);
@@ -43,9 +42,7 @@ const TicketSelect = ({
   const { mutate: submitNewTickets, data } = useSubmitNewTickets();
 
   const addTicketHandler = (ticket: ticketModel) => {
-    if (userInfo) {
-      setNewTickets([...newTickets, ticket]);
-    }
+    setNewTickets([...newTickets, ticket]);
   };
 
   const payTicketHandler = () => {
@@ -56,17 +53,17 @@ const TicketSelect = ({
 
     if (userInfo && userInfo.data.data.gameAccount >= payAmount) {
       submitNewTickets(newTickets);
-      if (data) {
-        setLotteryResult(data.data.data.data);
-        setShowLotteryResult(true);
-        setNewTickets([]);
-      }
-    } else {
+    } else if (userInfo && userInfo.data.data.gameAccount < payAmount) {
       alert(
         "There is not enough money in your game account to pay the lottery. Please top up the money before continue."
       );
     }
   };
+
+  useEffect(() => {
+    setLotteryResult(data?.data.data.data);
+    setNewTickets([]);
+  }, [data]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -142,13 +139,7 @@ const TicketSelect = ({
       >
         Pay {payAmount}.00 €
       </Button>
-      {showLotteryResult && lotteryResult && (
-        <LotteryResult
-          showLotteryResult={showLotteryResult}
-          setShowLotteryResult={setShowLotteryResult}
-          lotteryResult={lotteryResult}
-        />
-      )}
+      {lotteryResult && <LotteryResult lotteryResult={lotteryResult} />}
     </div>
   );
 };
