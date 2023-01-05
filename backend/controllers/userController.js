@@ -98,3 +98,19 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 
   res.status(204).json({ status: "success", data: null });
 });
+
+exports.updateTransaction = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  const { amount } = req.body;
+
+  if (!amount) {
+    return next(new AppError("A minimum amount of 10 euros is required."));
+  }
+
+  user.gameAccount = user.gameAccount + amount * 1;
+  user.transaction.push({ amount, paidAt: Date.now() });
+
+  await user.save();
+
+  res.status(201).json({ status: "success", data: { data: user } });
+});
