@@ -50,7 +50,6 @@ exports.submitLottery = catchAsync(async (req, res, next) => {
     user.lotteries.push(newLottery);
 
     await user.save();
-   
 
     res.status(201).json({ status: "success", data: { data: newLottery } });
   }
