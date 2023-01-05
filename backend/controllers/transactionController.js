@@ -11,8 +11,8 @@ exports.createTransaction = async (req, res) => {
         price: req.body.id,
       },
     ],
-    success_url: "http://127.0.0.1:3000/profile",
-    cancel_url: "http://127.0.0.1:3000/transaction",
+    success_url: "http://localhost:3000/profile",
+    cancel_url: "http://localhost:3000/transaction",
     customer_email: req.user.email,
     mode: "payment",
   });
