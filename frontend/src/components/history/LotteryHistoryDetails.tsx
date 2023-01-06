@@ -30,9 +30,7 @@ const LotteryHistoryDetails = ({ lottery }: { lottery: lotteryModel }) => {
           }}
         >
           <Typography alignSelf={"center"}>
-            <strong>
-              Your lotteries played on {formatDate(lottery.playAt)}
-            </strong>
+            <strong>Your lottery played on {formatDate(lottery.playAt)}</strong>
           </Typography>
         </Box>
       </AccordionSummary>
@@ -40,7 +38,7 @@ const LotteryHistoryDetails = ({ lottery }: { lottery: lotteryModel }) => {
         <Typography margin={"0 0 1rem 0"}>
           <strong>The Result:</strong>
         </Typography>
-        <TicketItem ticket={lottery.result[0]} showIcon={false} />
+        <TicketItem ticket={lottery.result[0]} />
 
         <Typography margin={"1rem 0"}>
           <strong>The Tickets:</strong>
