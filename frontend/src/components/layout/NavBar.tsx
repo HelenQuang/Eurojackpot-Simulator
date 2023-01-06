@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useGetUserInfo } from "../../hooks/userHooks";
 import {
   AppBar,
   Box,
@@ -24,20 +24,17 @@ const pages = [
 
 const detailPages = [
   { name: "Profile", to: "/profile" },
-  { name: "Transaction", to: "/transaction" },
   { name: "History", to: "/history" },
+  { name: "Top Up", to: "/transaction" },
 ];
 
 const ResponsiveAppBar = () => {
   const navigate = useNavigate();
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const userInfo = JSON.parse(localStorage.getItem("userInfo")!);
+  const userToken: string = JSON.parse(localStorage.getItem("token")!);
+  const { data: userInfo } = useGetUserInfo(userToken);
 
   const handleOpenNavMenu = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(e.currentTarget);
@@ -55,6 +52,12 @@ const ResponsiveAppBar = () => {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("token");
     navigate("/");
+  };
+
+  const stringAvatar = (name: string) => {
+    return {
+      children: `${name.split(" ")[0][0]}`,
+    };
   };
 
   return (
@@ -169,16 +172,30 @@ const ResponsiveAppBar = () => {
             ))}
           </Box>
 
-          {userInfo ? (
+          {userInfo && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title={""}>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
-                    sx={{ bgcolor: "var(--dark-yellow)" }}
-                    alt={userInfo.name}
-                    src={`./img/users/${userInfo.photo}`}
+                    sx={{ bgcolor: "var(--dark-purple)" }}
+                    alt={userInfo.data.data.name}
+                    src={
+                      userInfo?.data.data.photo
+                        ? `./img/users/${userInfo.data.data.photo}`
+                        : ""
+                    }
+                    {...stringAvatar(userInfo.data.data.name)}
                   />
-                </IconButton>
+                  <Typography
+                    component={"span"}
+                    sx={{
+                      color: "var(--black)",
+                      margin: "0 1rem",
+                    }}
+                  >
+                    <strong>{userInfo.data.data.gameAccount}.00 € </strong>
+                  </Typography>
+                </Button>
               </Tooltip>
               <Menu
                 sx={{ mt: "45px" }}
@@ -214,7 +231,9 @@ const ResponsiveAppBar = () => {
                 </MenuItem>
               </Menu>
             </Box>
-          ) : (
+          )}
+
+          {!userInfo && (
             <Button
               onClick={() => {
                 navigate("/login");
