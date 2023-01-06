@@ -25,7 +25,6 @@ const TicketSelect = ({
   newTickets: ticketModel[];
   setNewTickets: Dispatch<SetStateAction<ticketModel[]>>;
 }) => {
-  const navigate = useNavigate();
   const [mainNum, setMainNum] = useState<number[]>([]);
   const [starNum, setStarNum] = useState<number[]>([]);
   const [maxMainNum, setMaxMainNum] = useState<boolean>(false);
@@ -42,12 +41,18 @@ const TicketSelect = ({
   const { mutate: submitNewTickets, data } = useSubmitNewTickets();
 
   const addTicketHandler = (ticket: ticketModel) => {
-    setNewTickets([...newTickets, ticket]);
+    const sortedMainNum = ticket.mainNum.sort((a, b) => a - b);
+    const sortedStarNum = ticket.starNum.sort((a, b) => a - b);
+    setNewTickets([
+      ...newTickets,
+      { mainNum: sortedMainNum, starNum: sortedStarNum, id: ticket.id },
+    ]);
+    setMainNum([]);
+    setStarNum([]);
   };
 
   const payTicketHandler = () => {
     if (!userInfo) {
-      navigate("/login");
       alert("Please login before paying the lottery tickets.");
     }
 
