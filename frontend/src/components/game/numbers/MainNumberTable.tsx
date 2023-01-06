@@ -33,7 +33,6 @@ const MainNumberTable = ({
     } else {
       setMaxMainNum(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainNum, setMaxMainNum]);
 
   const numberClasses = (selectNumber: number) =>
