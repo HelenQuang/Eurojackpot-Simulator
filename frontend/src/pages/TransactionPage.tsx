@@ -8,7 +8,8 @@ import {
   Radio,
   Button,
 } from "@mui/material";
-import { useStripeTransaction } from "../hooks/lotteryHooks";
+import { useCreateStripeTransaction } from "../hooks/lotteryHooks";
+import { useUpdateTransaction } from "../hooks/userHooks";
 import Loader from "../components/layout/Loader";
 
 const topupAmount = [
@@ -22,26 +23,35 @@ const TransactionPage = () => {
   const [selectedAmount, setSelectedAmount] = useState<string>("10");
   const [errMessage, setErrMessage] = useState<string | null>(null);
 
-  const selectedAmountId = topupAmount.find(
+  const userToken: string = JSON.parse(localStorage.getItem("token")!);
+
+  const amountId = topupAmount.find(
     (item) => item.amount === selectedAmount
   )!.id;
 
-  const { mutate, isLoading, isError, isSuccess, data, error } =
-    useStripeTransaction();
+  const {
+    mutate: createStripeTransaction,
+    isLoading,
+    isError,
+    isSuccess,
+    data,
+    error,
+  } = useCreateStripeTransaction();
+  const { mutate: updateTransaction } = useUpdateTransaction();
 
-  // if (axios.isAxiosError(error) && error.response) {
-  //   setErrMessage(error.response.data.message);
-  // }
+  if (axios.isAxiosError(error) && error.response) {
+    setErrMessage(error.response.data.message);
+  }
 
-  const userInfo = JSON.parse(localStorage.getItem("userInfo")!);
-
-  const createTransaction = () => {
-    mutate(selectedAmountId);
+  const createTransaction = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    createStripeTransaction({ amountId, userToken });
   };
 
   useEffect(() => {
     if (isSuccess) {
       window.open(data.data.url, "_blank");
+      updateTransaction({ userToken, selectedAmount });
     }
   }, [isSuccess]);
 
@@ -57,7 +67,7 @@ const TransactionPage = () => {
     >
       <h2>Topup Money</h2>
       {isLoading && <Loader />}
-      {/* {isError && <p>{errMessage}</p>} */}
+      {isError && <p>{errMessage}</p>}
       <FormControl>
         <FormLabel id="top-up" style={{ marginBottom: "1rem" }}>
           Please select the amount of money you want to topup
