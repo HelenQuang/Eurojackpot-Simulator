@@ -65,7 +65,7 @@ const ProfilePage = () => {
             style={{ display: "flex", justifyContent: "center", gap: "1rem" }}
           >
             <PaidIcon />
-            <span>Current account: {data.data.data.gameAccount} €</span>
+            <span>Current game account: {data.data.data.gameAccount} €</span>
           </li>
           <li
             style={{ display: "flex", justifyContent: "center", gap: "1rem" }}
