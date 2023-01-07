@@ -8,6 +8,7 @@ const GameHistoryPage = () => {
   const userToken = JSON.parse(localStorage.getItem("token")!);
 
   const { isLoading, data, isError, error } = useGetUserInfo(userToken);
+  const lotteries = data?.data.data.lotteries;
 
   let errMessage;
   if (axios.isAxiosError(error) && error.response) {
@@ -29,7 +30,11 @@ const GameHistoryPage = () => {
       {isLoading && <Loader />}
       {isError && <p>{errMessage}</p>}
 
-      {data && <LotteryHistory lotteries={data.data.data.lotteries} />}
+      {data && lotteries.length !== 0 ? (
+        <LotteryHistory lotteries={lotteries} />
+      ) : (
+        <p>There is no game history yet.</p>
+      )}
     </div>
   );
 };
