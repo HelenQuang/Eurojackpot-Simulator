@@ -37,8 +37,24 @@ const signup = ({
 
 const getUserInfo = (userToken: string) => {
   return axios.get("/api/v1/users/me", {
-    headers: { Authorization: userToken },
+    headers: { Authorization: `Bearer ${userToken}` },
   });
+};
+
+const updateTransaction = ({
+  userToken,
+  selectedAmount,
+}: {
+  userToken: string;
+  selectedAmount: string;
+}) => {
+  return axios.post(
+    "/api/v1/users/updateTransaction",
+    { amount: selectedAmount },
+    {
+      headers: { Authorization: `Bearer ${userToken}` },
+    }
+  );
 };
 
 export const useUserLogin = () => {
@@ -51,4 +67,8 @@ export const useUserSignup = () => {
 
 export const useGetUserInfo = (token: string) => {
   return useQuery(["userInfo", token], () => getUserInfo(token));
+};
+
+export const useUpdateTransaction = () => {
+  return useMutation(updateTransaction);
 };
