@@ -1,17 +1,10 @@
 const formatDate = (inputDate: Date) => {
-  let year: number = new Date(inputDate).getFullYear();
-  let month: number | string = new Date(inputDate).getMonth() + 1;
-  let date: number | string = new Date(inputDate).getDate();
+  const f = new Intl.DateTimeFormat("en", {
+    dateStyle: "full",
+    timeStyle: "medium",
+  });
 
-  if (date < 10) {
-    date = "0" + date;
-  }
-
-  if (month < 10) {
-    month = "0" + month;
-  }
-
-  return `${date}.${month}.${year}`;
+  return f.format(new Date(inputDate));
 };
 
 export default formatDate;
