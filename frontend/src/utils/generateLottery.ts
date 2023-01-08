@@ -3,6 +3,7 @@ randomNum = Math.floor((Math.random() * (max - min + 1)) + min
 
 indexOf() === -1 --> No match found
 */
+import { v4 as uuidv4 } from "uuid";
 
 const generateLottery = () => {
   let generatedMainNum = [];
@@ -28,6 +29,7 @@ const generateLottery = () => {
   return {
     mainNum: generatedMainNum.sort((a, b) => a - b),
     starNum: generatedStarNum.sort((a, b) => a - b),
+    id: uuidv4(),
   };
 };
 
