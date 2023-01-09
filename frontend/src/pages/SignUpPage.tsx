@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 import { Box, TextField, Avatar, Typography, Button } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
@@ -19,11 +20,25 @@ const SignUpPage = () => {
   const { mutate, isLoading, isSuccess, isError, error, data } =
     useUserSignup();
 
+  const isEmail = (email: string) => {
+    return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+  };
+
   const submitHandler = () => {
-    if (password === passwordConfirm) {
-      mutate({ name, email, password, passwordConfirm });
-    } else {
+    if (password.length < 8 || passwordConfirm.length < 8) {
+      setErrMessage("Password must be at least 8 characters.");
+    }
+
+    if (password !== passwordConfirm) {
       setErrMessage("Passwords do not match. Please try again!");
+    }
+
+    if (!isEmail(email)) {
+      setErrMessage("Please enter a valid email address.");
+    }
+
+    if (password === passwordConfirm && isEmail(email)) {
+      mutate({ name, email, password, passwordConfirm });
     }
   };
 
@@ -32,12 +47,10 @@ const SignUpPage = () => {
       localStorage.setItem("token", JSON.stringify(data.data.token));
       localStorage.setItem("userInfo", JSON.stringify(data.data.data.user));
       navigate("/");
+    } else if (axios.isAxiosError(error)) {
+      setErrMessage("There is connecting error. Please try again later!");
     }
-  }, [isSuccess]);
-
-  if (axios.isAxiosError(error) && error.response) {
-    setErrMessage(error.response.data.message);
-  }
+  }, [isSuccess, isError]);
 
   return (
     <Box
@@ -57,7 +70,8 @@ const SignUpPage = () => {
         Sign Up
       </Typography>
       {isLoading && <Loader />}
-      {(isError || errMessage) && <p>{errMessage}</p>}
+      {errMessage && <p>{errMessage}</p>}
+      {/* {errMessage && <p>{errMessage}</p>} */}
       <Box
         my={4}
         sx={{
