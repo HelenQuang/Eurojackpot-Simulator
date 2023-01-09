@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetUserInfo } from "../../hooks/userHooks";
+import userInfoModel from "../../models/userInfoModel";
 import {
   AppBar,
   Box,
@@ -33,8 +34,8 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const userToken: string = JSON.parse(localStorage.getItem("token")!);
-  const { data: userInfo } = useGetUserInfo(userToken);
+  const userInfo: userInfoModel = JSON.parse(localStorage.getItem("userIfo")!);
+  // const { data: userInfo } = useGetUserInfo(userToken);
 
   const handleOpenNavMenu = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(e.currentTarget);
@@ -178,13 +179,9 @@ const ResponsiveAppBar = () => {
                 <Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     sx={{ bgcolor: "var(--dark-purple)" }}
-                    alt={userInfo.data.data.name}
-                    src={
-                      userInfo?.data.data.photo
-                        ? `./img/users/${userInfo.data.data.photo}`
-                        : ""
-                    }
-                    {...stringAvatar(userInfo.data.data.name)}
+                    alt={userInfo.name}
+                    src={userInfo?.photo ? `./img/users/${userInfo.photo}` : ""}
+                    {...stringAvatar(userInfo.name)}
                   />
                   <Typography
                     component={"span"}
@@ -193,7 +190,7 @@ const ResponsiveAppBar = () => {
                       margin: "0 1rem",
                     }}
                   >
-                    <strong>{userInfo.data.data.gameAccount}.00 € </strong>
+                    <strong>{userInfo.gameAccount}.00 € </strong>
                   </Typography>
                 </Button>
               </Tooltip>
