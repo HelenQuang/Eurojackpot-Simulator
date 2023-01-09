@@ -14,9 +14,6 @@ const TicketItem = ({ ticket }: { ticket: ticketModel }) => {
         fontSize: "0.9rem",
         padding: "0.25rem 1rem",
         borderRadius: "0.5rem",
-        ":nth-of-type(2n)": {
-          backgroundColor: "var(--gray)",
-        },
       }}
     >
       <Box
