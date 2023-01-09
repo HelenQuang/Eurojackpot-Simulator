@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import TicketItem from "./TicketItem";
 import ticketModel from "../../../models/ticketModel";
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const TicketList = ({
@@ -24,9 +24,15 @@ const TicketList = ({
 
       {newTickets.length > 0 &&
         newTickets.map((ticket: ticketModel) => (
-          <div
+          <Box
             key={ticket.id}
-            style={{ display: "flex", flexDirection: "row" }}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              ":nth-of-type(2n)": {
+                backgroundColor: "var(--gray)",
+              },
+            }}
           >
             <TicketItem ticket={ticket} />
             <Button
@@ -37,7 +43,7 @@ const TicketList = ({
                 deleteTicket(ticket.id);
               }}
             />
-          </div>
+          </Box>
         ))}
     </div>
   );
