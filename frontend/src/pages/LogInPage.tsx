@@ -18,11 +18,26 @@ import Loader from "../components/layout/Loader";
 const LogInPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [errMessage, setErrMessage] = useState<string | null>();
   const navigate = useNavigate();
   const { mutate, isLoading, isSuccess, isError, error, data } = useUserLogin();
 
+  const isEmail = (email: string) => {
+    return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+  };
+
   const submitHandler = () => {
-    mutate({ email, password });
+    if (password.length < 8) {
+      setErrMessage("Password must be at least 8 characters.");
+    }
+
+    if (!isEmail(email)) {
+      setErrMessage("Please enter a valid email address.");
+    }
+
+    if (password.length >= 8 && isEmail(email)) {
+      mutate({ email, password });
+    }
   };
 
   useEffect(() => {
@@ -30,13 +45,10 @@ const LogInPage = () => {
       localStorage.setItem("token", JSON.stringify(data.data.token));
       localStorage.setItem("userInfo", JSON.stringify(data.data.data.user));
       navigate("/");
+    } else if (axios.isAxiosError(error)) {
+      setErrMessage("There is connecting error. Please try again later!");
     }
-  }, [isSuccess, navigate]);
-
-  let errMessage;
-  if (axios.isAxiosError(error) && error.response) {
-    errMessage = error.response.data.message;
-  }
+  }, [isSuccess, navigate, isError]);
 
   return (
     <Box
@@ -56,7 +68,7 @@ const LogInPage = () => {
         Log In
       </Typography>
       {isLoading && <Loader />}
-      {isError && <p>{errMessage}</p>}
+      {errMessage && <p>{errMessage}</p>}
       <Box
         my={4}
         sx={{
