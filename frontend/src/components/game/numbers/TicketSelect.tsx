@@ -31,8 +31,7 @@ const TicketSelect = ({
   const [maxStarNum, setMaxStarNum] = useState<boolean>(false);
   const [lotteryResult, setLotteryResult] = useState<lotteryModel | null>();
 
-  const userToken: string = JSON.parse(localStorage.getItem("token")!);
-  const { data: userInfo } = useGetUserInfo(userToken);
+  const { data: userInfo } = useGetUserInfo();
 
   const addTicketBtnActive = maxMainNum && maxStarNum;
   const payBtnActive = newTickets.length === 0 ? false : true;
