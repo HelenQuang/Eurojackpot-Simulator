@@ -107,7 +107,11 @@ const TicketSelect = ({
           variant="outlined"
           type="button"
           startIcon={<AddIcon />}
-          style={{ borderColor: "var(--purple)", color: "var(--purple)" }}
+          style={{
+            border: "solid 1px",
+            borderColor: "var(--purple)",
+            color: "var(--purple)",
+          }}
           disabled={!addTicketBtnActive}
           onClick={() =>
             addTicketHandler({
@@ -124,7 +128,10 @@ const TicketSelect = ({
         variant="outlined"
         type="button"
         startIcon={<ShuffleOnRoundedIcon />}
-        style={{ borderColor: "var(--purple)", color: "var(--purple)" }}
+        style={{
+          borderColor: "var(--purple)",
+          color: "var(--purple)",
+        }}
         onClick={() => addTicketHandler(generateLottery())}
       >
         Auto generate ticket
