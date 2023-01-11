@@ -1,8 +1,14 @@
 import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 
-const login = ({ email, password }: { email: string; password: string }) => {
-  return axios.post(
+const login = async ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) => {
+  return await axios.post(
     "/api/v1/users/login",
     { email, password },
     {
@@ -12,8 +18,28 @@ const login = ({ email, password }: { email: string; password: string }) => {
     }
   );
 };
+// const login = async ({
+//   email,
+//   password,
+// }: {
+//   email: string;
+//   password: string;
+// }) => {
+//   try {
+//     const res = await axios.post(
+//       "/api/v1/users/login",
+//       { email, password },
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//     return res.json();
+//   } catch (err) {}
+// };
 
-const signup = ({
+const signup = async ({
   name,
   email,
   password,
@@ -24,7 +50,7 @@ const signup = ({
   password: string;
   passwordConfirm: string;
 }) => {
-  return axios.post(
+  return await axios.post(
     "/api/v1/users/signup",
     { name, email, password, passwordConfirm },
     {
@@ -35,26 +61,14 @@ const signup = ({
   );
 };
 
-const getUserInfo = (userToken: string) => {
-  return axios.get("/api/v1/users/me", {
-    headers: { Authorization: `Bearer ${userToken}` },
-  });
+const getUserInfo = async () => {
+  return await axios.get("/api/v1/users/me");
 };
 
-const updateTransaction = ({
-  userToken,
-  selectedAmount,
-}: {
-  userToken: string;
-  selectedAmount: string;
-}) => {
-  return axios.post(
-    "/api/v1/users/updateTransaction",
-    { amount: selectedAmount },
-    {
-      headers: { Authorization: `Bearer ${userToken}` },
-    }
-  );
+const updateTransaction = async (selectedAmount: string) => {
+  return await axios.post("/api/v1/users/updateTransaction", {
+    amount: selectedAmount,
+  });
 };
 
 export const useUserLogin = () => {
@@ -65,8 +79,10 @@ export const useUserSignup = () => {
   return useMutation(signup);
 };
 
-export const useGetUserInfo = (token: string) => {
-  return useQuery(["userInfo", token], () => getUserInfo(token));
+export const useGetUserInfo = () => {
+  return useQuery(["userInfo"], () => getUserInfo(), {
+    retry: 2,
+  });
 };
 
 export const useUpdateTransaction = () => {
