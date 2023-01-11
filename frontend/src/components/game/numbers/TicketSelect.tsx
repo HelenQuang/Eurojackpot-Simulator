@@ -30,7 +30,7 @@ const TicketSelect = ({
   const [maxMainNum, setMaxMainNum] = useState<boolean>(false);
   const [maxStarNum, setMaxStarNum] = useState<boolean>(false);
   const [lotteryResult, setLotteryResult] = useState<lotteryModel | null>();
-
+  const navigate = useNavigate();
   const { data: userInfo } = useGetUserInfo();
 
   const addTicketBtnActive = maxMainNum && maxStarNum;
@@ -67,7 +67,12 @@ const TicketSelect = ({
   useEffect(() => {
     setLotteryResult(data?.data.data.data);
     setNewTickets([]);
+    navigate("/");
   }, [data]);
+
+  // if () {
+  //   window.location.reload();
+  // }
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
