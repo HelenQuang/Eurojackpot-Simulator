@@ -42,7 +42,10 @@ const LogInPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      localStorage.setItem("token", JSON.stringify(data.data.token));
+      localStorage.setItem(
+        "isAuthenticated",
+        JSON.stringify("isAuthenticated")
+      );
       localStorage.setItem("userInfo", JSON.stringify(data.data.data.user));
       navigate("/");
     } else if (axios.isAxiosError(error)) {
