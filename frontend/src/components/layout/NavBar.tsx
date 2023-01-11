@@ -34,8 +34,8 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const userInfo: userInfoModel = JSON.parse(localStorage.getItem("userIfo")!);
-  // const { data: userInfo } = useGetUserInfo(userToken);
+  const isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated")!);
+  const { data: userInfo } = useGetUserInfo();
 
   const handleOpenNavMenu = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(e.currentTarget);
@@ -51,7 +51,7 @@ const ResponsiveAppBar = () => {
 
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
-    localStorage.removeItem("token");
+    localStorage.removeItem("isAuthenticated");
     navigate("/");
   };
 
@@ -173,15 +173,19 @@ const ResponsiveAppBar = () => {
             ))}
           </Box>
 
-          {userInfo && (
+          {isAuthenticated && userInfo && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title={""}>
                 <Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     sx={{ bgcolor: "var(--dark-purple)" }}
-                    alt={userInfo.name}
-                    src={userInfo?.photo ? `./img/users/${userInfo.photo}` : ""}
-                    {...stringAvatar(userInfo.name)}
+                    alt={userInfo.data.data.name}
+                    src={
+                      userInfo.data.data?.photo
+                        ? `./img/users/${userInfo.data.data.photo}`
+                        : ""
+                    }
+                    {...stringAvatar(userInfo.data.data.name)}
                   />
                   <Typography
                     component={"span"}
@@ -190,7 +194,7 @@ const ResponsiveAppBar = () => {
                       margin: "0 1rem",
                     }}
                   >
-                    <strong>{userInfo.gameAccount}.00 € </strong>
+                    <strong>{userInfo.data.data.gameAccount}.00 € </strong>
                   </Typography>
                 </Button>
               </Tooltip>
@@ -230,7 +234,7 @@ const ResponsiveAppBar = () => {
             </Box>
           )}
 
-          {!userInfo && (
+          {!isAuthenticated && (
             <Button
               onClick={() => {
                 navigate("/login");
