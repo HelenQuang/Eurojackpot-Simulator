@@ -5,9 +5,7 @@ import Loader from "../components/layout/Loader";
 import LotteryHistory from "../components/history/LotteryHistory";
 
 const GameHistoryPage = () => {
-  const userToken = JSON.parse(localStorage.getItem("token")!);
-
-  const { isLoading, data, isError, error } = useGetUserInfo(userToken);
+  const { isLoading, data, isError, error } = useGetUserInfo();
   const lotteries = data?.data.data.lotteries;
 
   let errMessage;
