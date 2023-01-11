@@ -2,27 +2,20 @@ import { useMutation } from "react-query";
 import axios from "axios";
 import ticketModel from "../models/ticketModel";
 
-const createStripeTransaction = ({
-  amountId,
-  userToken,
-}: {
-  amountId: string;
-  userToken: string;
-}) => {
-  return axios.post(
+const createStripeTransaction = async (amountId: string) => {
+  return await axios.post(
     "/api/v1/lotteries/createTransaction",
     { id: amountId },
     {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${userToken}`,
       },
     }
   );
 };
 
-const submitNewTickets = (tickets: ticketModel[]) => {
-  return axios.post(
+const submitNewTickets = async (tickets: ticketModel[]) => {
+  return await axios.post(
     "/api/v1/lotteries",
     { tickets },
     {
