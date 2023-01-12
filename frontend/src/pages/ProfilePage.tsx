@@ -10,9 +10,7 @@ import { useGetUserInfo } from "../hooks/userHooks";
 import Loader from "../components/layout/Loader";
 
 const ProfilePage = () => {
-  const userToken = JSON.parse(localStorage.getItem("token")!);
-
-  const { isLoading, data, isError, error } = useGetUserInfo(userToken);
+  const { isLoading, data, isError, error } = useGetUserInfo();
 
   let errMessage;
   if (axios.isAxiosError(error) && error.response) {
