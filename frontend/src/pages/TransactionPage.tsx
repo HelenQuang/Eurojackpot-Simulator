@@ -23,8 +23,6 @@ const TransactionPage = () => {
   const [selectedAmount, setSelectedAmount] = useState<string>("10");
   const [errMessage, setErrMessage] = useState<string | null>(null);
 
-  const userToken: string = JSON.parse(localStorage.getItem("token")!);
-
   const amountId = topupAmount.find(
     (item) => item.amount === selectedAmount
   )!.id;
@@ -45,13 +43,13 @@ const TransactionPage = () => {
 
   const createTransaction = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    createStripeTransaction({ amountId, userToken });
+    createStripeTransaction(amountId);
   };
 
   useEffect(() => {
     if (isSuccess) {
       window.open(data.data.url, "_blank");
-      updateTransaction({ userToken, selectedAmount });
+      updateTransaction(selectedAmount);
     }
   }, [isSuccess]);
 
