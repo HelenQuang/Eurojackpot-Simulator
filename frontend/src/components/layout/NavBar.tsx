@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetUserInfo } from "../../hooks/userHooks";
-import userInfoModel from "../../models/userInfoModel";
+// import userInfoModel from "../../models/userInfoModel";
 import {
   AppBar,
   Box,
