@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = require("./app");
+const path=require("path");
 const colors = require("colors");
 
 process.on("uncaughtException", (err) => {
@@ -26,6 +27,9 @@ mongoose
   .then(() => {
     console.log("DB connection successful".bold.bgYellow);
   });
+
+
+
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
