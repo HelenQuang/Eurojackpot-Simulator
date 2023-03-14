@@ -15,6 +15,8 @@ const lotteryRouter = require("./routes/lotteryRoutes");
 const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/appError");
 
+const app = express();
+
 process.on("uncaughtException", (err) => {
   console.log("UNCAUGHT EXCEPTION! SHUTING DOWN...".bold.bgRed);
   console.log(err.name, err.message);
@@ -40,20 +42,7 @@ mongoose
   });
 
 
-process.on("unhandledRejection", (err) => {
-  console.log("UNHANDLED REJECTION! SHUTING DOWN...".bold.bgRed);
-  console.log(err.name, err.message);
-  server.close(() => {
-    process.exit(1);
-  });
-});
-
-const app = express();
-
 const port = process.env.PORT || 8000;
-app.listen(port, () => {
-  console.log(`App running on port ${port}`.bold.bgCyan);
-});
 
 //To log development
 if (process.env.NODE_ENV === "development") {
@@ -97,10 +86,9 @@ app.all("*", (req, res, next) => {
 
 app.use(globalErrorHandler);
 
-
-
 //Serving static files
 const __dirname = path.resolve();
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/build")));
 
@@ -112,3 +100,15 @@ if (process.env.NODE_ENV === "production") {
     res.send("API is running....");
   });
 }
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}`.bold.bgCyan);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED REJECTION! SHUTING DOWN...".bold.bgRed);
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
+});
