@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const app = require("./app");
 const colors = require("colors");
 const morgan = require("morgan");
 const path = require("path");
@@ -41,11 +40,6 @@ mongoose
   });
 
 
-const port = process.env.PORT || 8000;
-app.listen(port, () => {
-  console.log(`App running on port ${port}`.bold.bgCyan);
-});
-
 process.on("unhandledRejection", (err) => {
   console.log("UNHANDLED REJECTION! SHUTING DOWN...".bold.bgRed);
   console.log(err.name, err.message);
@@ -55,6 +49,11 @@ process.on("unhandledRejection", (err) => {
 });
 
 const app = express();
+
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
+  console.log(`App running on port ${port}`.bold.bgCyan);
+});
 
 //To log development
 if (process.env.NODE_ENV === "development") {
