@@ -13,7 +13,6 @@ const compression = require("compression");
 const userRouter = require("./routes/userRoutes");
 const lotteryRouter = require("./routes/lotteryRoutes");
 const globalErrorHandler = require("./controllers/errorController");
-const AppError = require("./utils/appError");
 
 const app = express();
 
@@ -79,20 +78,18 @@ app.use(xss());
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/lotteries", lotteryRouter);
 
-///////////////HANDLE PAGE NOT FOUND AND GLOBAL ERROR
-app.all("*", (req, res, next) => {
-  next(new AppError(`${req.originalUrl} cannot find in this server`, 404));
-});
-
+///////////////HANDLE GLOBAL ERROR
 app.use(globalErrorHandler);
 
-//Serving static files
+const rootDir = path.join(__dirname, '../');
 
+//Serving static files
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/build")));
+  app.use(express.static(path.join(rootDir, "/frontend/build")));
+  
 
   app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+    res.sendFile(path.resolve(rootDir, "frontend", "build", "index.html"))
   );
 } else {
   app.get("/", (req, res) => {
