@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import styles from "./Number.module.css";
+import styles from "../../../styles/Number.module.css";
 
 interface StarNumberTableProps {
   starNum: number[];

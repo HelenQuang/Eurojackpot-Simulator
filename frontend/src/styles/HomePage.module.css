@@ -1,0 +1,13 @@
+.basicGame {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .basicGame {
+    flex-direction: column;
+    gap: 5rem;
+    align-items: center;
+  }
+}

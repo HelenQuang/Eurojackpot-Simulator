@@ -1,7 +1,5 @@
 import { useState } from "react";
 import {
-  Paper,
-  Box,
   FormControl,
   InputLabel,
   Select,
@@ -28,16 +26,8 @@ const LotteryHistory = ({ lotteries }: { lotteries: lotteryModel[] }) => {
   }
 
   return (
-    <div>
-      <Paper
-        elevation={6}
-        sx={{
-          backgroundColor: "var(--white)",
-          padding: "2rem",
-        }}
-      >
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
+   <>
+     <FormControl fullWidth>
             <InputLabel id="sortBy">Sort By</InputLabel>
             <Select
               labelId="sortBySelect"
@@ -51,14 +41,13 @@ const LotteryHistory = ({ lotteries }: { lotteries: lotteryModel[] }) => {
               <MenuItem value={"newest"}>Newest</MenuItem>
               <MenuItem value={"oldest"}>Oldest</MenuItem>
             </Select>
-          </FormControl>
-        </Box>
+      </FormControl>
+      
 
         {sortedLottery.map((lottery) => (
           <LotteryHistoryDetails key={lottery._id} lottery={lottery} />
         ))}
-      </Paper>
-    </div>
+    </>
   );
 };
 

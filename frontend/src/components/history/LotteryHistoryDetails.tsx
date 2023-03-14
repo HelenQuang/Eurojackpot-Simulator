@@ -13,7 +13,7 @@ import LotteryTable from "./LotteryTable";
 
 const LotteryHistoryDetails = ({ lottery }: { lottery: lotteryModel }) => {
   return (
-    <Accordion>
+    <Accordion sx={{width: "100%"}}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="lottery-accordion"

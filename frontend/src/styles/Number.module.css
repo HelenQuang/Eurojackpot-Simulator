@@ -14,7 +14,6 @@
   width: 100%;
   grid-auto-rows: 2rem;
   grid-template-columns: repeat(10, 2rem);
-  justify-content: center;
 }
 
 .number {
@@ -47,4 +46,16 @@
   background-color: var(--gray);
   pointer-events: none;
   transition: none;
+}
+
+@media only screen and (max-width: 450px) {
+  .numberGrid {
+    grid-template-columns: repeat(8, 2rem);
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .numberGrid {
+    grid-template-columns: repeat(6, 2rem);
+  }
 }

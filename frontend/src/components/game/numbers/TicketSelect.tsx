@@ -70,9 +70,7 @@ const TicketSelect = ({
     navigate("/");
   }, [data]);
 
-  // if () {
-  //   window.location.reload();
-  // }
+
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -93,6 +91,7 @@ const TicketSelect = ({
           display: "flex",
           justifyContent: "space-between",
           marginBottom: "1rem",
+          gap: "1rem"
         }}
       >
         <Button

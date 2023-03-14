@@ -9,12 +9,12 @@ const Container = ({ children }: ContainerProps) => {
     <ContainerEl
       component="main"
       sx={{
-        width: { xs: "95%", md: "80%", lg: "60%" },
+        width: { xs: "95%", md: "90%", lg: "80%" },
         marginTop: "2rem",
         marginBottom: "2rem",
       }}
     >
-      <Paper elevation={2} sx={{ padding: "1.5rem" }}>
+      <Paper elevation={2} sx={{ padding: "1.5rem"}}>
         {children}
       </Paper>
     </ContainerEl>

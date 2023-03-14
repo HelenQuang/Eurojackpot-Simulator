@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styles from "./Number.module.css";
+import styles from "../../../styles/Number.module.css";
 
 interface MainNumberTableProps {
   mainNum: number[];
