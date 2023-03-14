@@ -37,6 +37,4 @@ Card information:
 111
 ```
 
-## DEMO:
-
-## DEMO Link:
+## DEMO Link: https://eurojackpot-simulator-helen.onrender.com
