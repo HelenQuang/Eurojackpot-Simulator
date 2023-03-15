@@ -11,8 +11,8 @@ exports.createTransaction = async (req, res) => {
         price: req.body.id,
       },
     ],
-    success_url: "http://localhost:3000/profile",
-    cancel_url: "http://localhost:3000/transaction",
+    success_url: "https://eurojackpot-simulator-helen.onrender.com/profile",
+    cancel_url: "https://eurojackpot-simulator-helen.onrender.com/transaction",
     customer_email: req.user.email,
     mode: "payment",
   });

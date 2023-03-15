@@ -18,26 +18,6 @@ const login = async ({
     }
   );
 };
-// const login = async ({
-//   email,
-//   password,
-// }: {
-//   email: string;
-//   password: string;
-// }) => {
-//   try {
-//     const res = await axios.post(
-//       "/api/v1/users/login",
-//       { email, password },
-//       {
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
-//     return res.json();
-//   } catch (err) {}
-// };
 
 const signup = async ({
   name,
@@ -61,6 +41,17 @@ const signup = async ({
   );
 };
 
+const logout = async () => {
+  return await axios.post(
+    "/api/v1/users/logout",
+    {
+      headers: {
+        "Content-Type": "application/json", 
+      },
+    }
+  );
+};
+
 const getUserInfo = async () => {
   return await axios.get("/api/v1/users/me");
 };
@@ -77,6 +68,10 @@ export const useUserLogin = () => {
 
 export const useUserSignup = () => {
   return useMutation(signup);
+};
+
+export const useUserLogout = () => {
+  return useMutation(logout);
 };
 
 export const useGetUserInfo = () => {

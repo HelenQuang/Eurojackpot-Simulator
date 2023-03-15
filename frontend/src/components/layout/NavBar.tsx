@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGetUserInfo } from "../../hooks/userHooks";
-// import userInfoModel from "../../models/userInfoModel";
+import { useGetUserInfo, useUserLogout } from "../../hooks/userHooks";
 import {
   AppBar,
   Box,
@@ -36,6 +35,7 @@ const ResponsiveAppBar = () => {
 
   const isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated")!);
   const { data: userInfo } = useGetUserInfo();
+  const { mutate: logout, data } = useUserLogout();
 
   const handleOpenNavMenu = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(e.currentTarget);
@@ -50,10 +50,13 @@ const ResponsiveAppBar = () => {
   };
 
   const logoutHandler = () => {
+    logout()
+  };
+
+  if(data) { 
     localStorage.removeItem("userInfo");
     localStorage.removeItem("isAuthenticated");
-    navigate("/");
-  };
+    navigate("/");}
 
   const stringAvatar = (name: string) => {
     return {

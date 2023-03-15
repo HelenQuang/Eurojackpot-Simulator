@@ -11,7 +11,6 @@
 - Node JS
 - React JS
 - Typescript
-- Redux
 - Material UI
 - Stripe Payment integration with TEST ACCOUNT
 
