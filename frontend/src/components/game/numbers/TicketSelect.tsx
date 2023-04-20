@@ -1,22 +1,23 @@
-import { useState, useEffect } from "react";
-import { Dispatch, SetStateAction } from "react";
-import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import { useState, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import Cookies from 'js-cookie';
 
-import MainNumberTable from "./MainNumberTable";
-import StarNumberTable from "./StarNumberTable";
-import LotteryResult from "../lotteries/LotteryResult";
-import ticketModel from "../../../models/ticketModel";
-import lotteryModel from "../../../models/lotteryModel";
-import generateLottery from "../../../utils/generateLottery";
-import { useGetUserInfo } from "../../../hooks/userHooks";
-import { useSubmitNewTickets } from "../../../hooks/lotteryHooks";
+import MainNumberTable from './MainNumberTable';
+import StarNumberTable from './StarNumberTable';
+import LotteryResult from '../lotteries/LotteryResult';
+import ticketModel from '../../../models/ticketModel';
+import lotteryModel from '../../../models/lotteryModel';
+import generateLottery from '../../../utils/generateLottery';
+import { useGetUserInfo } from '../../../hooks/userHooks';
+import { useSubmitNewTickets } from '../../../hooks/lotteryHooks';
 
-import { Button } from "@mui/material";
-import ShuffleOnRoundedIcon from "@mui/icons-material/ShuffleOnRounded";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import CachedIcon from "@mui/icons-material/Cached";
-import AddIcon from "@mui/icons-material/Add";
+import { Button } from '@mui/material';
+import ShuffleOnRoundedIcon from '@mui/icons-material/ShuffleOnRounded';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import CachedIcon from '@mui/icons-material/Cached';
+import AddIcon from '@mui/icons-material/Add';
 
 const TicketSelect = ({
   newTickets,
@@ -31,7 +32,9 @@ const TicketSelect = ({
   const [maxStarNum, setMaxStarNum] = useState<boolean>(false);
   const [lotteryResult, setLotteryResult] = useState<lotteryModel | null>();
   const navigate = useNavigate();
-  const { data: userInfo } = useGetUserInfo();
+  const isAuthenticated = Boolean(Cookies.get('isAuthenticated'));
+
+  const { data: userInfo } = useGetUserInfo(isAuthenticated);
 
   const addTicketBtnActive = maxMainNum && maxStarNum;
   const payBtnActive = newTickets.length === 0 ? false : true;
@@ -52,14 +55,14 @@ const TicketSelect = ({
 
   const payTicketHandler = () => {
     if (!userInfo) {
-      alert("Please login before paying the lottery tickets.");
+      alert('Please login before paying the lottery tickets.');
     }
 
     if (userInfo && userInfo.data.data.gameAccount >= payAmount) {
       submitNewTickets(newTickets);
     } else if (userInfo && userInfo.data.data.gameAccount < payAmount) {
       alert(
-        "There is not enough money in your game account to pay the lottery. Please top up the money before continue."
+        'There is not enough money in your game account to pay the lottery. Please top up the money before continue.'
       );
     }
   };
@@ -67,13 +70,11 @@ const TicketSelect = ({
   useEffect(() => {
     setLotteryResult(data?.data.data.data);
     setNewTickets([]);
-    navigate("/");
+    navigate('/');
   }, [data]);
 
-
-
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <MainNumberTable
         mainNum={mainNum}
         setMainNum={setMainNum}
@@ -88,17 +89,17 @@ const TicketSelect = ({
       />
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "1rem",
-          gap: "1rem"
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: '1rem',
+          gap: '1rem',
         }}
       >
         <Button
-          variant="outlined"
-          type="button"
+          variant='outlined'
+          type='button'
           startIcon={<CachedIcon />}
-          style={{ borderColor: "var(--purple)", color: "var(--purple)" }}
+          style={{ borderColor: 'var(--purple)', color: 'var(--purple)' }}
           onClick={() => {
             setMainNum([]);
             setStarNum([]);
@@ -107,13 +108,13 @@ const TicketSelect = ({
           Select ticket again
         </Button>
         <Button
-          variant="outlined"
-          type="button"
+          variant='outlined'
+          type='button'
           startIcon={<AddIcon />}
           style={{
-            border: "solid 1px",
-            borderColor: "var(--purple)",
-            color: "var(--purple)",
+            border: 'solid 1px',
+            borderColor: 'var(--purple)',
+            color: 'var(--purple)',
           }}
           disabled={!addTicketBtnActive}
           onClick={() =>
@@ -128,26 +129,26 @@ const TicketSelect = ({
         </Button>
       </div>
       <Button
-        variant="outlined"
-        type="button"
+        variant='outlined'
+        type='button'
         startIcon={<ShuffleOnRoundedIcon />}
         style={{
-          borderColor: "var(--purple)",
-          color: "var(--purple)",
+          borderColor: 'var(--purple)',
+          color: 'var(--purple)',
         }}
         onClick={() => addTicketHandler(generateLottery())}
       >
         Auto generate ticket
       </Button>
       <Button
-        variant="contained"
-        type="button"
+        variant='contained'
+        type='button'
         startIcon={<ShoppingCartIcon />}
         style={{
-          margin: "1rem 0",
-          backgroundColor: "var(--green)",
+          margin: '1rem 0',
+          backgroundColor: 'var(--green)',
           fontWeight: 600,
-          fontSize: "1.1rem",
+          fontSize: '1.1rem',
         }}
         disabled={!payBtnActive}
         onClick={payTicketHandler}

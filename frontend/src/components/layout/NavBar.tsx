@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useGetUserInfo, useUserLogout } from "../../hooks/userHooks";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { useGetUserInfo, useUserLogout } from '../../hooks/userHooks';
 import {
   AppBar,
   Box,
@@ -13,29 +14,29 @@ import {
   Button,
   Tooltip,
   MenuItem,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const pages = [
-  { name: "Game", to: "/" },
-  { name: "Rule", to: "/rule" },
-  { name: "About", to: "/about" },
+  { name: 'Game', to: '/' },
+  { name: 'Rule', to: '/rule' },
+  { name: 'About', to: '/about' },
 ];
 
 const detailPages = [
-  { name: "Profile", to: "/profile" },
-  { name: "History", to: "/history" },
-  { name: "Top Up", to: "/transaction" },
+  { name: 'Profile', to: '/profile' },
+  { name: 'History', to: '/history' },
+  { name: 'Top Up', to: '/transaction' },
 ];
 
 const ResponsiveAppBar = () => {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const isAuthenticated = Boolean(Cookies.get('isAuthenticated'));
 
-  const isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated")!);
-  const { data: userInfo } = useGetUserInfo();
-  const { mutate: logout, data } = useUserLogout();
+  const { data: userInfo } = useGetUserInfo(isAuthenticated);
+  const { mutate: logout } = useUserLogout();
 
   const handleOpenNavMenu = (e: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(e.currentTarget);
@@ -50,84 +51,80 @@ const ResponsiveAppBar = () => {
   };
 
   const logoutHandler = () => {
-    logout()
+    logout();
+    Cookies.remove('isAuthenticated');
   };
-
-  if(data) { 
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem("isAuthenticated");
-    navigate("/");}
 
   const stringAvatar = (name: string) => {
     return {
-      children: `${name.split(" ")[0][0]}`,
+      children: `${name.split(' ')[0][0]}`,
     };
   };
 
   return (
     <AppBar
-      position="static"
+      position='static'
       sx={{
-        background: "var(--yellow)",
-        color: "var(--black)",
+        background: 'var(--yellow)',
+        color: 'var(--black)',
         height: {
-          md: "4rem",
-          xs: "3.5rem",
+          md: '4rem',
+          xs: '3.5rem',
         },
       }}
       elevation={0}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Typography
-            variant="h5"
+            variant='h5'
             noWrap
-            component="a"
-            href="/"
+            component='a'
+            href='/'
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
+              display: { xs: 'none', md: 'flex' },
               fontWeight: 700,
-              color: "var(--black)",
-              textDecoration: "none",
+              color: 'var(--black)',
+              textDecoration: 'none',
             }}
           >
             EUROJACKPOT
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
               onClick={handleOpenNavMenu}
-              sx={{ bgcolor: "var(--dark-yellow)", p: 1 }}
+              sx={{ bgcolor: 'var(--dark-yellow)', p: 1 }}
             >
-              <MenuIcon sx={{ color: "var(--black)" }} />
+              <MenuIcon sx={{ color: 'var(--black)' }} />
             </IconButton>
             <Menu
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
+                vertical: 'bottom',
+                horizontal: 'left',
               }}
               keepMounted
               transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
+                vertical: 'top',
+                horizontal: 'left',
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none" },
+                display: { xs: 'block', md: 'none' },
               }}
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   <Typography
-                    textAlign="center"
+                    textAlign='center'
                     onClick={() => {
                       navigate(`${page.to}`);
                     }}
@@ -140,24 +137,24 @@ const ResponsiveAppBar = () => {
           </Box>
 
           <Typography
-            variant="h3"
+            variant='h3'
             noWrap
-            component="a"
-            href="/"
+            component='a'
+            href='/'
             sx={{
               mr: 2,
-              display: { xs: "flex", md: "none" },
+              display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontWeight: 700,
-              fontSize: "1rem",
-              color: "var(--black)",
-              textDecoration: "none",
+              fontSize: '1rem',
+              color: 'var(--black)',
+              textDecoration: 'none',
             }}
           >
             EUROJACKPOT
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page.name}
@@ -166,8 +163,8 @@ const ResponsiveAppBar = () => {
                 }}
                 sx={{
                   my: 2,
-                  color: "var(--black)",
-                  display: "block",
+                  color: 'var(--black)',
+                  display: 'block',
                   fontWeight: 700,
                 }}
               >
@@ -178,23 +175,23 @@ const ResponsiveAppBar = () => {
 
           {isAuthenticated && userInfo && (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title={""}>
+              <Tooltip title={''}>
                 <Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
-                    sx={{ bgcolor: "var(--dark-purple)" }}
+                    sx={{ bgcolor: 'var(--dark-purple)' }}
                     alt={userInfo.data.data.name}
                     src={
                       userInfo.data.data?.photo
                         ? `./img/users/${userInfo.data.data.photo}`
-                        : ""
+                        : ''
                     }
                     {...stringAvatar(userInfo.data.data.name)}
                   />
                   <Typography
-                    component={"span"}
+                    component={'span'}
                     sx={{
-                      color: "var(--black)",
-                      margin: "0 1rem",
+                      color: 'var(--black)',
+                      margin: '0 1rem',
                     }}
                   >
                     <strong>{userInfo.data.data.gameAccount}.00 € </strong>
@@ -202,17 +199,17 @@ const ResponsiveAppBar = () => {
                 </Button>
               </Tooltip>
               <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
+                sx={{ mt: '45px' }}
+                id='menu-appbar'
                 anchorEl={anchorElUser}
                 anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={() => {
@@ -227,11 +224,11 @@ const ResponsiveAppBar = () => {
                       setAnchorElUser(null);
                     }}
                   >
-                    <Typography textAlign="center">{setting.name}</Typography>
+                    <Typography textAlign='center'>{setting.name}</Typography>
                   </MenuItem>
                 ))}
                 <MenuItem onClick={logoutHandler}>
-                  <Typography textAlign="center">Log Out</Typography>
+                  <Typography textAlign='center'>Log Out</Typography>
                 </MenuItem>
               </Menu>
             </Box>
@@ -240,12 +237,12 @@ const ResponsiveAppBar = () => {
           {!isAuthenticated && (
             <Button
               onClick={() => {
-                navigate("/login");
+                navigate('/login');
               }}
               sx={{
                 my: 2,
-                color: "var(--black)",
-                display: "block",
+                color: 'var(--black)',
+                display: 'block',
                 fontWeight: 700,
               }}
             >

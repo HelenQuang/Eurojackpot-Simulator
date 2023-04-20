@@ -1,11 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
-import { useGetUserInfo } from "../hooks/userHooks";
-import Loader from "../components/layout/Loader";
-import LotteryHistory from "../components/history/LotteryHistory";
+import { useGetUserInfo } from '../hooks/userHooks';
+import Loader from '../components/layout/Loader';
+import LotteryHistory from '../components/history/LotteryHistory';
 
 const GameHistoryPage = () => {
-  const { isLoading, data, isError, error } = useGetUserInfo();
+  const isAuthenticated = Boolean(Cookies.get('isAuthenticated'));
+
+  const { isLoading, data, isError, error } = useGetUserInfo(isAuthenticated);
   const lotteries = data?.data.data.lotteries;
 
   let errMessage;
@@ -16,11 +19,11 @@ const GameHistoryPage = () => {
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "1rem",
-        marginBottom: "1rem",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '1rem',
+        marginBottom: '1rem',
       }}
     >
       <h2>Game History</h2>
